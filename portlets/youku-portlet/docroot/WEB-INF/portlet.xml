@@ -4,7 +4,7 @@
 	<portlet>
 		<portlet-name>1</portlet-name>
 		<display-name>Youku</display-name>
-		<portlet-class>com.liferay.youku.Youku</portlet-class>
+		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
 		<init-param>
 			<name>view-template</name>
 			<value>/view.jsp</value>
@@ -12,7 +12,6 @@
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
-			<portlet-mode>view</portlet-mode>
 		</supports>
 		<resource-bundle>content.Language</resource-bundle>
 		<portlet-info>

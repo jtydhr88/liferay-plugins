@@ -19,7 +19,7 @@
 <liferay-portlet:actionURL portletConfiguration="true" var="configurationURL" />
 
 <aui:form action="<%= configurationURL %>" method="post">
-	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
+	<aui:input name="<%= Constants.CMD %>" type="hidden"value="<%= Constants.UPDATE %>" />
 
 	<div class="aui-field-row">
 		<aui:input cssClass="url" inlineField="true" name="preferences--url--" type="text"  value="<%= url %>" />
@@ -73,6 +73,7 @@
 
 			return;
 		}
+
 		var dimensions = this.val().split('x');
 
 		heightNode.val(dimensions[1]);
