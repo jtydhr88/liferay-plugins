@@ -1,0 +1,41 @@
+.youku-portlet.portlet-body {
+	overflow: hidden;
+}
+
+.youku-portlet.portlet-configuration select {
+	padding: 4px;
+}
+
+.youku-portlet.portlet-configuration .aui-field-inline {
+	vertical-align: text-top;
+}
+
+.youku-portlet.portlet-configuration .aui-field-label {
+	vertical-align: bottom;
+}
+
+.youku-portlet.portlet-configuration .aui-field-row {
+	margin-right: 1em;
+}
+
+.youku-portlet.portlet-configuration .aui-field-text .aui-field-label,
+.youku-portlet.portlet-configuration .aui-field-select .aui-field-label {
+	display: block;
+}
+
+.youku-portlet.portlet-configuration .height .aui-field-input,
+.youku-portlet.portlet-configuration .width .aui-field-input {
+	width: 5em;
+}
+
+.youku-portlet.portlet-configuration .invisible {
+	visibility: hidden;
+}
+
+.youku-portlet.portlet-configuration .lfr-panel-container {
+	border: 0;
+}
+
+.youku-portlet.portlet-configuration .url .aui-field-input {
+	width: 30em;
+}
