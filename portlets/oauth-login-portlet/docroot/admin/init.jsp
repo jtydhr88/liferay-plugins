@@ -16,4 +16,21 @@
 
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 
+<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
+<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
+
+<%@ page import="com.liferay.oauthlogin.model.OAuthConnection" %><%@
+page import="com.liferay.oauthlogin.service.OAuthConnectionLocalServiceUtil" %><%@
+page import="com.liferay.oauthlogin.util.OAuthConnectionConstants" %><%@
+page import="com.liferay.oauthlogin.util.WebKeys" %><%@
+page import="com.liferay.portal.kernel.dao.search.ResultRow" %><%@
+page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
+page import="com.liferay.portal.util.PortalUtil" %>
+
 <portlet:defineObjects />
+
+<theme:defineObjects />
+
+<%
+String currentURL = PortalUtil.getCurrentURL(request);
+%>

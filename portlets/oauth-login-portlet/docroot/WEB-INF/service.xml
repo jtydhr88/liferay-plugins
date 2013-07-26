@@ -22,7 +22,7 @@
 		<column name="enabled" type="boolean" />
 		<column name="name" type="String" />
 		<column name="description" type="String" />
-		<column name="iconId" type="long" />
+		<column name="iconId" type="long" />		
 		<column name="oAuthVersion" type="int" />
 		<column name="key" type="String" />
 		<column name="secret" type="String" />
