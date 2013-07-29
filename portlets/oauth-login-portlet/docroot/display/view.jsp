@@ -17,13 +17,34 @@
 <%@ include file="/display/init.jsp" %>
 
 <%
+long userId = themeDisplay.getUserId();
+
 List<OAuthConnection> oAuthConnections = OAuthConnectionLocalServiceUtil.getOAuthConnectionsEnabled(true);
 
 for (OAuthConnection oAuthConnection : oAuthConnections) {
+
+String expandoColumnName = String.valueOf(oAuthConnection.getOAuthConnectionId()) + "_social_account_id";
+
+String socailAccountId = ExpandoValueLocalServiceUtil.getData(company.getCompanyId(), User.class.getName(), ExpandoTableConstants.DEFAULT_TABLE_NAME, expandoColumnName, userId, StringPool.BLANK);
 %>
 
-	<a href="javascript:;" onClick="getAuthorizeURL(<%= oAuthConnection.getOAuthConnectionId() %>);"><%= oAuthConnection.getName() %></a>
+	<c:choose>
+		<c:when test="<%= Validator.isNull(socailAccountId) %>">
 
+			<a href="javascript:;" onClick="getAuthorizeURL(<%= oAuthConnection.getOAuthConnectionId() %>);">bind your <%= oAuthConnection.getName() %> account</a>
+
+			<br />
+		</c:when>
+		<c:otherwise>
+			<portlet:actionURL name="unbindSocialAccount" var="unbindSocialAccountURL">
+				<portlet:param name="oAuthConnectionId" value="<%= String.valueOf(oAuthConnection.getOAuthConnectionId()) %>" />
+			</portlet:actionURL>
+
+			you-have-bound-your <%= oAuthConnection.getName() %> accout <aui:a href="<%= unbindSocialAccountURL.toString() %>" label="unbind-your-account" />
+
+			<br />
+		</c:otherwise>
+</c:choose>
 <%
 }
 %>

@@ -100,8 +100,8 @@ public class AdminPortlet extends MVCPortlet {
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
-		UploadPortletRequest uploadPortletRequest = PortalUtil.getUploadPortletRequest(
-			actionRequest);
+		UploadPortletRequest uploadPortletRequest =
+			PortalUtil.getUploadPortletRequest(actionRequest);
 
 		long oAuthConnectionId = ParamUtil.getLong(
 			uploadPortletRequest, "oAuthConnectionId");
@@ -151,17 +151,21 @@ public class AdminPortlet extends MVCPortlet {
 
 		OAuthConnection oAuthConnection = null;
 
-		ExpandoTable expandoTable = null;		
+		ExpandoTable expandoTable = null;
+
+		ExpandoColumn expandoColumn = null;
 
 		if (oAuthConnectionId <= 0) {
-			oAuthConnection = OAuthConnectionLocalServiceUtil.addOAuthConnection(
-				enabled, name, description, oAuthVersion, key, secret,
-				scope, graphURL, authorizeURL, accessTokenURL, accessTokenVerb,
-				accessTokenExtratorType, accessTokenExtratorScript,
-				requestTokenURL, requestTokenVerb, redirectURL,
-				socialAccountIdURL, socialAccountIdURLVerb,socialAccountIdField,
-				socialAccountIdType, socialAccountIdScript, icon,
-				serviceContext);
+			oAuthConnection =
+				OAuthConnectionLocalServiceUtil.addOAuthConnection(
+					enabled, name, description, oAuthVersion, key, secret,
+					scope, graphURL, authorizeURL, accessTokenURL,
+					accessTokenVerb, accessTokenExtratorType,
+					accessTokenExtratorScript, requestTokenURL,
+					requestTokenVerb, redirectURL, socialAccountIdURL,
+					socialAccountIdURLVerb,socialAccountIdField,
+					socialAccountIdType, socialAccountIdScript, icon,
+					serviceContext);
 
 			try {
 				expandoTable = ExpandoTableLocalServiceUtil.addTable(
@@ -176,11 +180,14 @@ public class AdminPortlet extends MVCPortlet {
 					ExpandoTableConstants.DEFAULT_TABLE_NAME);
 			}
 
-			ExpandoColumn expandoColumn =
-				ExpandoColumnLocalServiceUtil.addColumn(
+			try{
+				expandoColumn = ExpandoColumnLocalServiceUtil.addColumn(
 					expandoTable.getTableId(),
 					oAuthConnection.getOAuthConnectionId() +
 					"_social_account_id", ExpandoColumnConstants.STRING);
+			}
+			catch (Exception e) {
+			}
 
 			ExpandoBridge expandoBridge =
 				ExpandoBridgeFactoryUtil.getExpandoBridge(

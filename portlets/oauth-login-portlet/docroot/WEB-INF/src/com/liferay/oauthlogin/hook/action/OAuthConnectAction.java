@@ -181,6 +181,10 @@ public class OAuthConnectAction extends BaseStrutsAction {
 							socialAccountId);
 					}
 				}
+				else if (userId != themeDisplay.getDefaultUserId()) {
+					System.out.println("this social account have " +
+						"been bind another liferay account");
+				}
 			}
 		}
 
