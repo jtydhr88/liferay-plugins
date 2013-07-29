@@ -16,4 +16,43 @@
 
 <%@ include file="/display/init.jsp" %>
 
-This is the <b>Display Portlet</b> portlet in View mode.
+<%
+List<OAuthConnection> oAuthConnections = OAuthConnectionLocalServiceUtil.getOAuthConnectionsEnabled(true);
+
+for (OAuthConnection oAuthConnection : oAuthConnections) {
+%>
+
+	<a href="javascript:;" onClick="getAuthorizeURL(<%= oAuthConnection.getOAuthConnectionId() %>);"><%= oAuthConnection.getName() %></a>
+
+<%
+}
+%>
+
+<portlet:actionURL name="getAuthorizeURL" var="getAuthorizeURL" />
+
+<aui:script use="aui-io-request">
+	Liferay.provide(
+		window,
+		"getAuthorizeURL",
+		function(oAuthConnectionId) {
+			var A = AUI();
+
+			A.io.request(
+				"<%= getAuthorizeURL %>",
+				{
+					dataType: 'json',
+					data: {
+						<portlet:namespace />oAuthConnectionId: oAuthConnectionId
+					},
+					after: {
+						success: function(event, id, obj) {
+							var jsonObject = this.get('responseData');
+
+							window.location.href = jsonObject.authorizeURL;
+						}
+					}
+				}
+			);
+		}
+	);
+</aui:script>

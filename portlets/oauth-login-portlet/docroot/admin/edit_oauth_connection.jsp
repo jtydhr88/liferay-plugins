@@ -49,8 +49,8 @@ OAuthConnection oAuthConnection = (OAuthConnection)request.getAttribute(WebKeys.
 		<liferay-ui:panel collapsible="<%= true %>" extended="<%= true %>" id="oAuthConnectionOAuthInfo" persistState="<%= true %>" title="oAuthConnection-OAuth-info">
 			<aui:fieldset>
 				<aui:select label="oAuthVersion" name="oAuthVersion">
-					<aui:option label="<%= OAuthConnectionConstants.LABEL_OAUTH_20 %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getOAuthVersion() == OAuthConnectionConstants.OAUTH_20) %>" value="<%= OAuthConnectionConstants.OAUTH_20 %>" />
-					<aui:option label="<%= OAuthConnectionConstants.LABEL_OAUTH_10A %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getOAuthVersion() == OAuthConnectionConstants.OAUTH_10A) %>" value="<%= OAuthConnectionConstants.OAUTH_10A %>" />
+					<aui:option label="<%= OAuthConstants.LABEL_OAUTH_20 %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getOAuthVersion() == OAuthConstants.OAUTH_20) %>" value="<%= OAuthConstants.OAUTH_20 %>" />
+					<aui:option label="<%= OAuthConstants.LABEL_OAUTH_10A %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getOAuthVersion() == OAuthConstants.OAUTH_10A) %>" value="<%= OAuthConstants.OAUTH_10A %>" />
 				</aui:select>
 
 				<aui:input name="key" />
@@ -67,16 +67,16 @@ OAuthConnection oAuthConnection = (OAuthConnection)request.getAttribute(WebKeys.
 					<aui:input label="access-token-url" name="accessTokenURL" />
 
 					<aui:select name="accessTokenVerb">
-						<aui:option label="<%= OAuthConnectionConstants.LABEL_GET %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getAccessTokenVerb() == OAuthConnectionConstants.GET) %>" value="<%= OAuthConnectionConstants.GET %>" />
-						<aui:option label="<%= OAuthConnectionConstants.LABEL_POST %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getAccessTokenVerb() == OAuthConnectionConstants.POST) %>" value="<%= OAuthConnectionConstants.POST %>" />
+						<aui:option label="<%= OAuthConstants.LABEL_GET %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getAccessTokenVerb() == OAuthConstants.GET) %>" value="<%= OAuthConstants.GET %>" />
+						<aui:option label="<%= OAuthConstants.LABEL_POST %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getAccessTokenVerb() == OAuthConstants.POST) %>" value="<%= OAuthConstants.POST %>" />
 					</aui:select>
 				</div>
 
 				<div id="<portlet:namespace />accessTokenExtratorTypeDiv">
 					<aui:select name="accessTokenExtratorType">
-						<aui:option label="<%= OAuthConnectionConstants.LABEL_EXTRATOR_DEFAULT %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getAccessTokenExtratorType() == OAuthConnectionConstants.EXTRATOR_DEFAULT) %>" value="<%= OAuthConnectionConstants.EXTRATOR_DEFAULT %>" />
-						<aui:option label="<%= OAuthConnectionConstants.LABEL_EXTRATOR_JSON_OBJECT %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getAccessTokenExtratorType() == OAuthConnectionConstants.EXTRATOR_JSON_OBJECT) %>" value="<%= OAuthConnectionConstants.EXTRATOR_JSON_OBJECT %>" />
-						<aui:option label="<%= OAuthConnectionConstants.LABEL_EXTRATOR_CUSTOM %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getAccessTokenExtratorType() == OAuthConnectionConstants.EXTRATOR_CUSTOM) %>" value="<%= OAuthConnectionConstants.EXTRATOR_CUSTOM %>" />
+						<aui:option label="<%= OAuthConstants.LABEL_EXTRATOR_DEFAULT %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getAccessTokenExtratorType() == OAuthConstants.EXTRATOR_DEFAULT) %>" value="<%= OAuthConstants.EXTRATOR_DEFAULT %>" />
+						<aui:option label="<%= OAuthConstants.LABEL_EXTRATOR_JSON_OBJECT %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getAccessTokenExtratorType() == OAuthConstants.EXTRATOR_JSON_OBJECT) %>" value="<%= OAuthConstants.EXTRATOR_JSON_OBJECT %>" />
+						<aui:option label="<%= OAuthConstants.LABEL_EXTRATOR_CUSTOM %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getAccessTokenExtratorType() == OAuthConstants.EXTRATOR_CUSTOM) %>" value="<%= OAuthConstants.EXTRATOR_CUSTOM %>" />
 					</aui:select>
 				</div>
 
@@ -88,8 +88,8 @@ OAuthConnection oAuthConnection = (OAuthConnection)request.getAttribute(WebKeys.
 					<aui:input label="request-token-url" name="requestTokenURL" />
 
 					<aui:select name="requestTokenVerb">
-						<aui:option label="<%= OAuthConnectionConstants.LABEL_GET %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getRequestTokenVerb() == OAuthConnectionConstants.GET) %>" value="<%= OAuthConnectionConstants.GET %>" />
-						<aui:option label="<%= OAuthConnectionConstants.LABEL_POST %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getRequestTokenVerb() == OAuthConnectionConstants.POST) %>" value="<%= OAuthConnectionConstants.POST %>" />
+						<aui:option label="<%= OAuthConstants.LABEL_GET %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getRequestTokenVerb() == OAuthConstants.GET) %>" value="<%= OAuthConstants.GET %>" />
+						<aui:option label="<%= OAuthConstants.LABEL_POST %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getRequestTokenVerb() == OAuthConstants.POST) %>" value="<%= OAuthConstants.POST %>" />
 					</aui:select>
 				</div>
 
@@ -102,16 +102,16 @@ OAuthConnection oAuthConnection = (OAuthConnection)request.getAttribute(WebKeys.
 				<aui:input label="social-account-id-url" name="socialAccountIdURL" />
 
 				<aui:select label="social-account-id-url-verb" name="socialAccountIdURLVerb">
-					<aui:option label="<%= OAuthConnectionConstants.LABEL_GET %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getSocialAccountIdURLVerb() == OAuthConnectionConstants.GET) %>" value="<%= OAuthConnectionConstants.GET %>" />
-					<aui:option label="<%= OAuthConnectionConstants.LABEL_POST %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getSocialAccountIdURLVerb() == OAuthConnectionConstants.POST) %>" value="<%= OAuthConnectionConstants.POST %>" />
+					<aui:option label="<%= OAuthConstants.LABEL_GET %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getSocialAccountIdURLVerb() == OAuthConstants.GET) %>" value="<%= OAuthConstants.GET %>" />
+					<aui:option label="<%= OAuthConstants.LABEL_POST %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getSocialAccountIdURLVerb() == OAuthConstants.POST) %>" value="<%= OAuthConstants.POST %>" />
 				</aui:select>
 
 				<aui:input label="social-account--id-field" name="socialAccountIdField" />
 
 				<div id="<portlet:namespace />socialAccountIdTypeDiv">
 					<aui:select name="socialAccountIdType">
-						<aui:option label="<%= OAuthConnectionConstants.LABEL_SOCIAL_ACCOUNT_ID_JSON_OBJECT %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getSocialAccountIdType() == OAuthConnectionConstants.SOCIAL_ACCOUNT_ID_JSON_OBJECT) %>" value="<%= OAuthConnectionConstants.SOCIAL_ACCOUNT_ID_JSON_OBJECT %>" />
-						<aui:option label="<%= OAuthConnectionConstants.LABEL_SOCIAL_ACCOUNT_ID_CUSTOM %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getSocialAccountIdType() == OAuthConnectionConstants.SOCIAL_ACCOUNT_ID_CUSTOM) %>" value="<%= OAuthConnectionConstants.SOCIAL_ACCOUNT_ID_CUSTOM %>" />
+						<aui:option label="<%= OAuthConstants.LABEL_EXTRATOR_JSON_OBJECT %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getSocialAccountIdType() == OAuthConstants.EXTRATOR_JSON_OBJECT) %>" value="<%= OAuthConstants.EXTRATOR_JSON_OBJECT %>" />
+						<aui:option label="<%= OAuthConstants.EXTRATOR_CUSTOM %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getSocialAccountIdType() == OAuthConstants.EXTRATOR_CUSTOM) %>" value="<%= OAuthConstants.EXTRATOR_CUSTOM %>" />
 					</aui:select>
 				</div>
 
@@ -139,15 +139,15 @@ OAuthConnection oAuthConnection = (OAuthConnection)request.getAttribute(WebKeys.
 	var socialAccountIdTypeDiv = A.one('#<portlet:namespace />socialAccountIdTypeDiv');
 	var socialAccountIdScriptDiv = A.one('#<portlet:namespace />socialAccountIdScriptDiv');
 
-	if (document.getElementById("<portlet:namespace />oAuthVersion").value == <%= OAuthConnectionConstants.OAUTH_20 %> && requestTokenDiv) {
+	if (document.getElementById("<portlet:namespace />oAuthVersion").value == <%= OAuthConstants.OAUTH_20 %> && requestTokenDiv) {
 		requestTokenDiv.hide();
 	}
 
-	if (!(document.getElementById("<portlet:namespace />accessTokenExtratorType").value == <%= OAuthConnectionConstants.EXTRATOR_CUSTOM %>) && accessTokenExtratorScriptDiv) {
+	if (!(document.getElementById("<portlet:namespace />accessTokenExtratorType").value == <%= OAuthConstants.EXTRATOR_CUSTOM %>) && accessTokenExtratorScriptDiv) {
 		accessTokenExtratorScriptDiv.hide();
 	}
 
-	if (!(document.getElementById("<portlet:namespace />socialAccountIdType").value == <%= OAuthConnectionConstants.SOCIAL_ACCOUNT_ID_CUSTOM %>) && socialAccountIdScriptDiv) {
+	if (!(document.getElementById("<portlet:namespace />socialAccountIdType").value == <%= OAuthConstants.EXTRATOR_CUSTOM %>) && socialAccountIdScriptDiv) {
 		socialAccountIdScriptDiv.hide();
 	}
 
@@ -155,7 +155,7 @@ OAuthConnection oAuthConnection = (OAuthConnection)request.getAttribute(WebKeys.
 		oauthVersion.on(
 			'change',
 			function(event) {
-				if (document.getElementById("<portlet:namespace />oAuthVersion").value == <%= OAuthConnectionConstants.OAUTH_20 %> && requestTokenDiv) {
+				if (document.getElementById("<portlet:namespace />oAuthVersion").value == <%= OAuthConstants.OAUTH_20 %> && requestTokenDiv) {
 					accessTokenDiv.show();
 					requestTokenDiv.hide();
 				}
@@ -170,7 +170,7 @@ OAuthConnection oAuthConnection = (OAuthConnection)request.getAttribute(WebKeys.
 		accessTokenExtratorType.on(
 			'change',
 			function(event) {
-				if ((document.getElementById("<portlet:namespace />accessTokenExtratorType").value == <%= OAuthConnectionConstants.EXTRATOR_CUSTOM %>) && accessTokenExtratorScriptDiv) {
+				if ((document.getElementById("<portlet:namespace />accessTokenExtratorType").value == <%= OAuthConstants.EXTRATOR_CUSTOM %>) && accessTokenExtratorScriptDiv) {
 					accessTokenExtratorScriptDiv.show();
 				}
 				else {
@@ -184,7 +184,7 @@ OAuthConnection oAuthConnection = (OAuthConnection)request.getAttribute(WebKeys.
 		socialAccountIdType.on(
 			'change',
 			function(event) {
-				if ((document.getElementById("<portlet:namespace />socialAccountIdType").value == <%= OAuthConnectionConstants.SOCIAL_ACCOUNT_ID_CUSTOM %>) && socialAccountIdScriptDiv) {
+				if ((document.getElementById("<portlet:namespace />socialAccountIdType").value == <%= OAuthConstants.EXTRATOR_CUSTOM %>) && socialAccountIdScriptDiv) {
 					socialAccountIdScriptDiv.show();
 				}
 				else {

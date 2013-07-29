@@ -14,10 +14,82 @@
 
 package com.liferay.oauthlogin.display.portlet;
 
+import com.liferay.oauthlogin.model.OAuthConnection;
+import com.liferay.oauthlogin.service.OAuthConnectionLocalServiceUtil;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.oauth.OAuthConstants;
+import com.liferay.portal.kernel.oauth.OAuthFactoryUtil;
+import com.liferay.portal.kernel.oauth.OAuthManager;
+import com.liferay.portal.kernel.oauth.Token;
+import com.liferay.portal.kernel.oauth.Verb;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * @author Terry Jia
  */
 public class DisplayPortlet extends MVCPortlet {
+
+	public void getAuthorizeURL(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+
+		long oAuthConnectionId = ParamUtil.getLong(
+			actionRequest, "oAuthConnectionId");
+
+		OAuthConnection oAuthConnection =
+			OAuthConnectionLocalServiceUtil.getOAuthConnection(
+				oAuthConnectionId);
+
+		String authorizeURL = oAuthConnection.getAuthorizeURL();
+
+		String accessTokenURL = oAuthConnection.getAccessTokenURL() +
+			"?grant_type=authorization_code";
+
+		authorizeURL = authorizeURL +
+			"?client_id=%s&redirect_uri=%s&response_type=code";
+
+		if (Validator.isNotNull(oAuthConnection.getScope())) {
+			authorizeURL = authorizeURL + "&scope=%s";
+		}
+
+		Verb accessTokenVerb = Verb.GET;
+
+		if (oAuthConnection.getAccessTokenVerb() == OAuthConstants.POST) {
+			accessTokenVerb = Verb.POST;
+		}
+
+		OAuthManager oAuthManager = OAuthFactoryUtil.createOAuthManager(
+			oAuthConnection.getKey(), oAuthConnection.getSecret(),
+			accessTokenURL, authorizeURL, oAuthConnection.getRedirectURL(),
+			oAuthConnection.getScope(), accessTokenVerb,
+			oAuthConnection.getAccessTokenExtratorType());
+
+		Token requestToken = OAuthFactoryUtil.createToken(
+			oAuthConnection.getKey(), oAuthConnection.getSecret());
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+
+		HttpServletRequest request = PortalUtil.getHttpServletRequest(
+			actionRequest);
+
+		HttpSession session = request.getSession();
+
+		session.setAttribute(
+			"LIFERAY_SHARED_oAuthConnectionId", oAuthConnectionId);
+
+		jsonObject.put(
+			"authorizeURL", oAuthManager.getAuthorizeURL(requestToken));
+
+		writeJSON(actionRequest, actionResponse, jsonObject);
+	}
+
 }

@@ -20,6 +20,11 @@
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="theme" %>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
+<%@ page import="com.liferay.oauthlogin.model.OAuthConnection" %><%@
+page import="com.liferay.oauthlogin.service.OAuthConnectionLocalServiceUtil" %>
+
+<%@ page import="java.util.List" %>
+
 <portlet:defineObjects />
 
 <theme:defineObjects />
