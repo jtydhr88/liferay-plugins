@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <classpath>
 	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="docroot/WEB-INF/src"/>
 	<classpathentry kind="src" path="/portal-master"/>
@@ -18,5 +17,6 @@
 	<classpathentry kind="lib" path="/portal-master/util-bridges/util-bridges.jar"/>
 	<classpathentry kind="lib" path="/portal-master/util-java/util-java.jar"/>
 	<classpathentry kind="lib" path="/portal-master/util-taglib/util-taglib.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/oauth-login-portlet-service.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
