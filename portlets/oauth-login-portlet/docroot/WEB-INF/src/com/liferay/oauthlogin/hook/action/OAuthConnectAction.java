@@ -80,12 +80,20 @@ public class OAuthConnectAction extends BaseStrutsAction {
 			throw new PrincipalException();
 		}
 
-		String code = ParamUtil.getString(request, "code");
+		String accessTokenURL = oAuthConnection.getAccessTokenURL();
+		String code = StringPool.BLANK;
 
-		if (Validator.isNotNull(code)) {
-			String accessTokenURL = oAuthConnection.getAccessTokenURL() +
+		if (oAuthConnection.getOAuthVersion() == OAuthConstants.OAUTH_10A) {
+			code = ParamUtil.getString(request, "oauth_verifier");
+		}
+		else {
+			accessTokenURL = accessTokenURL +
 				"?grant_type=authorization_code";
 
+			code = ParamUtil.getString(request, "code");
+		}
+
+		if (Validator.isNotNull(code)) {
 			Verifier verifier = OAuthFactoryUtil.createVerifier(code);
 
 			Verb accessTokenVerb = Verb.GET;
@@ -94,14 +102,35 @@ public class OAuthConnectAction extends BaseStrutsAction {
 				accessTokenVerb = Verb.POST;
 			}
 
-			OAuthManager oAuthManager = OAuthFactoryUtil.createOAuthManager(
-				oAuthConnection.getKey(), oAuthConnection.getSecret(),
-				accessTokenURL, oAuthConnection.getAuthorizeURL(),
-				oAuthConnection.getRedirectURL(), oAuthConnection.getScope(),
-				accessTokenVerb, oAuthConnection.getAccessTokenExtratorType());
+			OAuthManager oAuthManager = null;
 
-			Token requestToken = OAuthFactoryUtil.createToken(
-				oAuthConnection.getKey(), oAuthConnection.getSecret());
+			if (oAuthConnection.getOAuthVersion() == OAuthConstants.OAUTH_20) {
+				oAuthManager = OAuthFactoryUtil.createOAuthManager(
+					oAuthConnection.getKey(), oAuthConnection.getSecret(),
+					accessTokenURL, oAuthConnection.getAuthorizeURL(),
+					oAuthConnection.getRedirectURL(), oAuthConnection.getScope(),
+					accessTokenVerb, oAuthConnection.getAccessTokenExtratorType());
+			}
+			else {
+				oAuthManager = OAuthFactoryUtil.createOAuthManager(
+					oAuthConnection.getKey(), oAuthConnection.getSecret(),
+					accessTokenURL, oAuthConnection.getAuthorizeURL(),
+					oAuthConnection.getRequestTokenURL(),
+					oAuthConnection.getRedirectURL(),
+					oAuthConnection.getScope());
+
+			}
+
+			Token requestToken = null;
+
+			if (oAuthConnection.getOAuthVersion() == OAuthConstants.OAUTH_10A) {
+				requestToken = (Token)session.getAttribute(
+					"LIFERAY_SHARED_requestToken");
+			}
+			else {
+				requestToken = OAuthFactoryUtil.createToken(
+					oAuthConnection.getKey(), oAuthConnection.getSecret());
+			}
 
 			Token accessToken = oAuthManager.getAccessToken(
 				requestToken, verifier);

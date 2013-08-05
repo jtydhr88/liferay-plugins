@@ -56,15 +56,7 @@ public class DisplayPortlet extends MVCPortlet {
 
 		String authorizeURL = oAuthConnection.getAuthorizeURL();
 
-		String accessTokenURL = oAuthConnection.getAccessTokenURL() +
-			"?grant_type=authorization_code";
-
-		authorizeURL = authorizeURL +
-			"?client_id=%s&redirect_uri=%s&response_type=code";
-
-		if (Validator.isNotNull(oAuthConnection.getScope())) {
-			authorizeURL = authorizeURL + "&scope=%s";
-		}
+		String accessTokenURL = oAuthConnection.getAccessTokenURL();
 
 		Verb accessTokenVerb = Verb.GET;
 
@@ -72,21 +64,54 @@ public class DisplayPortlet extends MVCPortlet {
 			accessTokenVerb = Verb.POST;
 		}
 
-		OAuthManager oAuthManager = OAuthFactoryUtil.createOAuthManager(
-			oAuthConnection.getKey(), oAuthConnection.getSecret(),
-			accessTokenURL, authorizeURL, oAuthConnection.getRedirectURL(),
-			oAuthConnection.getScope(), accessTokenVerb,
-			oAuthConnection.getAccessTokenExtratorType());
+		OAuthManager oAuthManager = null;
 
-		Token requestToken = OAuthFactoryUtil.createToken(
-			oAuthConnection.getKey(), oAuthConnection.getSecret());
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+		Token requestToken = null;
 
 		HttpServletRequest request = PortalUtil.getHttpServletRequest(
 			actionRequest);
 
 		HttpSession session = request.getSession();
+
+		if (oAuthConnection.getOAuthVersion() == OAuthConstants.OAUTH_20) {
+			authorizeURL = authorizeURL +
+				"?client_id=%s&redirect_uri=%s&response_type=code";
+
+			accessTokenURL = oAuthConnection.getAccessTokenURL() +
+					"?grant_type=authorization_code";
+
+			if (Validator.isNotNull(oAuthConnection.getScope())) {
+				authorizeURL = authorizeURL + "&scope=%s";
+			}
+
+			oAuthManager = OAuthFactoryUtil.createOAuthManager(
+				oAuthConnection.getKey(), oAuthConnection.getSecret(),
+				accessTokenURL, authorizeURL, oAuthConnection.getRedirectURL(),
+				oAuthConnection.getScope(), accessTokenVerb,
+				oAuthConnection.getAccessTokenExtratorType());
+
+			requestToken = OAuthFactoryUtil.createToken(
+				oAuthConnection.getKey(), oAuthConnection.getSecret());
+
+		}
+		else {
+			authorizeURL = authorizeURL + "?oauth_token=%s";
+
+			String requestTokenURL = oAuthConnection.getRequestTokenURL();
+
+			oAuthManager = OAuthFactoryUtil.createOAuthManager(
+				oAuthConnection.getKey(), oAuthConnection.getSecret(),
+				accessTokenURL, authorizeURL, requestTokenURL,
+				oAuthConnection.getRedirectURL(),
+				oAuthConnection.getScope());
+		
+			requestToken = oAuthManager.getRequestToken();
+
+			session.setAttribute(
+				"LIFERAY_SHARED_requestToken", requestToken);
+		}
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
 		session.setAttribute(
 			"LIFERAY_SHARED_oAuthConnectionId", oAuthConnectionId);
