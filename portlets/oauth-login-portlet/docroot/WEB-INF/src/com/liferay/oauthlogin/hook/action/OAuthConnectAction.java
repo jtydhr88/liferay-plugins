@@ -81,6 +81,7 @@ public class OAuthConnectAction extends BaseStrutsAction {
 		}
 
 		String accessTokenURL = oAuthConnection.getAccessTokenURL();
+
 		String code = StringPool.BLANK;
 
 		if (oAuthConnection.getOAuthVersion() == OAuthConstants.OAUTH_10A) {
@@ -104,14 +105,9 @@ public class OAuthConnectAction extends BaseStrutsAction {
 
 			OAuthManager oAuthManager = null;
 
-			if (oAuthConnection.getOAuthVersion() == OAuthConstants.OAUTH_20) {
-				oAuthManager = OAuthFactoryUtil.createOAuthManager(
-					oAuthConnection.getKey(), oAuthConnection.getSecret(),
-					accessTokenURL, oAuthConnection.getAuthorizeURL(),
-					oAuthConnection.getRedirectURL(), oAuthConnection.getScope(),
-					accessTokenVerb, oAuthConnection.getAccessTokenExtratorType());
-			}
-			else {
+			Token requestToken = null;
+
+			if (oAuthConnection.getOAuthVersion() == OAuthConstants.OAUTH_10A) {
 				oAuthManager = OAuthFactoryUtil.createOAuthManager(
 					oAuthConnection.getKey(), oAuthConnection.getSecret(),
 					accessTokenURL, oAuthConnection.getAuthorizeURL(),
@@ -119,15 +115,19 @@ public class OAuthConnectAction extends BaseStrutsAction {
 					oAuthConnection.getRedirectURL(),
 					oAuthConnection.getScope());
 
-			}
-
-			Token requestToken = null;
-
-			if (oAuthConnection.getOAuthVersion() == OAuthConstants.OAUTH_10A) {
 				requestToken = (Token)session.getAttribute(
 					"LIFERAY_SHARED_requestToken");
+
+				session.removeAttribute("LIFERAY_SHARED_requestToken");
 			}
 			else {
+				oAuthManager = OAuthFactoryUtil.createOAuthManager(
+					oAuthConnection.getKey(), oAuthConnection.getSecret(),
+					accessTokenURL, oAuthConnection.getAuthorizeURL(),
+					oAuthConnection.getRedirectURL(),
+					oAuthConnection.getScope(), accessTokenVerb,
+					oAuthConnection.getAccessTokenExtratorType());
+
 				requestToken = OAuthFactoryUtil.createToken(
 					oAuthConnection.getKey(), oAuthConnection.getSecret());
 			}
@@ -135,52 +135,35 @@ public class OAuthConnectAction extends BaseStrutsAction {
 			Token accessToken = oAuthManager.getAccessToken(
 				requestToken, verifier);
 
-			String socialAccountIdURL = oAuthConnection.getSocialAccountIdURL();
+			String socialAccountId = getSocicalAccountId(
+				oAuthConnection, accessToken.getRawResponse());
 
-			Verb socialAccountIdURLVerb = Verb.GET;
+			if (Validator.isNull(socialAccountId)) {
+				String socialAccountIdURL =
+					oAuthConnection.getSocialAccountIdURL();
 
-			if (oAuthConnection.getSocialAccountIdURLVerb() ==
-				OAuthConstants.POST) {
+				Verb socialAccountIdURLVerb = Verb.GET;
 
-				socialAccountIdURLVerb = Verb.POST;
+				if (oAuthConnection.getSocialAccountIdURLVerb() ==
+					OAuthConstants.POST) {
+
+					socialAccountIdURLVerb = Verb.POST;
+				}
+
+				OAuthRequest meRequest = OAuthFactoryUtil.createOAuthRequest(
+					socialAccountIdURLVerb, socialAccountIdURL);
+
+				oAuthManager.signRequest(accessToken, meRequest);
+
+				OAuthResponse oAuthResponse = meRequest.send();
+
+				if (oAuthResponse.getStatus() == 200) {
+					socialAccountId = getSocicalAccountId(
+						oAuthConnection, oAuthResponse.getBody());
+				}
 			}
 
-			OAuthRequest meRequest = OAuthFactoryUtil.createOAuthRequest(
-				socialAccountIdURLVerb, socialAccountIdURL);
-
-			oAuthManager.signRequest(accessToken, meRequest);
-
-			OAuthResponse oAuthResponse = meRequest.send();
-
-			if (oAuthResponse.getStatus() == 200) {
-				String socialAccountId = StringPool.BLANK;
-
-				if (oAuthConnection.getSocialAccountIdType() ==
-					OAuthConstants.EXTRATOR_JSON_OBJECT) {
-
-					try {
-						JSONObject jsonObject =
-							JSONFactoryUtil.createJSONObject(
-								oAuthResponse.getBody());
-
-						socialAccountId = jsonObject.getString(
-							oAuthConnection.getSocialAccountIdField());
-						}
-					catch (Exception e) {
-					}
-				}
-				else {
-					String script = oAuthConnection.getSocialAccountIdScript();
-
-					Matcher matcher = Pattern.compile(script).matcher(
-						oAuthResponse.getBody());
-
-					if (matcher.find())
-						socialAccountId = matcher.group(1);
-					else {
-					}
-				}
-
+			if (Validator.isNotNull(socialAccountId)) {
 				long userId = themeDisplay.getUserId();
 
 				List<ExpandoValue> expandoValues =
@@ -220,6 +203,37 @@ public class OAuthConnectAction extends BaseStrutsAction {
 		response.sendRedirect(redirectURL);
 
 		return null;
+	}
+
+	protected String getSocicalAccountId(
+		OAuthConnection oAuthConnection, String response) {
+
+		String socialAccountId = StringPool.BLANK;
+
+		if (oAuthConnection.getSocialAccountIdType() ==
+			OAuthConstants.EXTRATOR_JSON_OBJECT) {
+
+			try {
+				JSONObject jsonObject =
+					JSONFactoryUtil.createJSONObject(response);
+
+				socialAccountId = jsonObject.getString(
+					oAuthConnection.getSocialAccountIdField());
+				}
+			catch (Exception e) {
+			}
+		}
+		else {
+			String script = oAuthConnection.getSocialAccountIdScript();
+
+			Matcher matcher = Pattern.compile(script).matcher(response);
+
+			if (matcher.find()) {
+				socialAccountId = matcher.group(1);
+			}
+		}
+
+		return socialAccountId;
 	}
 
 }

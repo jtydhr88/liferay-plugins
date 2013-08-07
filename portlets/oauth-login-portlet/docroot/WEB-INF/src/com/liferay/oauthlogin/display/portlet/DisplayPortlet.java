@@ -78,7 +78,7 @@ public class DisplayPortlet extends MVCPortlet {
 				"?client_id=%s&redirect_uri=%s&response_type=code";
 
 			accessTokenURL = oAuthConnection.getAccessTokenURL() +
-					"?grant_type=authorization_code";
+				"?grant_type=authorization_code";
 
 			if (Validator.isNotNull(oAuthConnection.getScope())) {
 				authorizeURL = authorizeURL + "&scope=%s";
@@ -104,7 +104,7 @@ public class DisplayPortlet extends MVCPortlet {
 				accessTokenURL, authorizeURL, requestTokenURL,
 				oAuthConnection.getRedirectURL(),
 				oAuthConnection.getScope());
-		
+
 			requestToken = oAuthManager.getRequestToken();
 
 			session.setAttribute(
@@ -121,7 +121,6 @@ public class DisplayPortlet extends MVCPortlet {
 
 		writeJSON(actionRequest, actionResponse, jsonObject);
 	}
-
 
 	public void unbindSocialAccount(
 			ActionRequest actionRequest, ActionResponse actionResponse)
