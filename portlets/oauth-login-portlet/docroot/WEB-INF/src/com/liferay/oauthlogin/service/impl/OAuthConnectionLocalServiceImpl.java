@@ -36,7 +36,7 @@ public class OAuthConnectionLocalServiceImpl
 			String description, int oAuthVersion, String key, String secret,
 			String scope, String graphURL, String authorizeURL,
 			String accessTokenURL, int accessTokenVerb,
-			int accessTokenExtratorType, String accessTokenExtratorScript,
+			int accessTokenExtractorType, String accessTokenExtractorScript,
 			String requestTokenURL, int requestTokenVerb, String redirectURL,
 			String socialAccountIdURL, int socialAccountIdURLVerb,
 			String socialAccountIdField, int socialAccountIdType,
@@ -70,12 +70,11 @@ public class OAuthConnectionLocalServiceImpl
 		oAuthConnection.setKey(key);
 		oAuthConnection.setSecret(secret);
 		oAuthConnection.setScope(scope);
-		oAuthConnection.setGraphURL(graphURL);
 		oAuthConnection.setAuthorizeURL(authorizeURL);
 		oAuthConnection.setAccessTokenURL(accessTokenURL);
 		oAuthConnection.setAccessTokenVerb(accessTokenVerb);
-		oAuthConnection.setAccessTokenExtratorType(accessTokenExtratorType);
-		oAuthConnection.setAccessTokenExtratorScript(accessTokenExtratorScript);
+		oAuthConnection.setAccessTokenExtractorType(accessTokenExtractorType);
+		oAuthConnection.setAccessTokenExtractorScript(accessTokenExtractorScript);
 		oAuthConnection.setRequestTokenURL(requestTokenURL);
 		oAuthConnection.setRequestTokenVerb(requestTokenVerb);
 		oAuthConnection.setRedirectURL(redirectURL);
@@ -124,7 +123,7 @@ public class OAuthConnectionLocalServiceImpl
 			String description, int oAuthVersion, String key, String secret,
 			String scope, String graphURL, String authorizeURL,
 			String accessTokenURL, int accessTokenVerb,
-			int accessTokenExtratorType, String accessTokenExtratorScript,
+			int accessTokenExtractorType, String accessTokenExtractorScript,
 			String requestTokenURL, int requestTokenVerb, String redirectURL,
 			String socialAccountIdURL, int socialAccountIdURLVerb,
 			String socialAccountIdField, int socialAccountIdType,
@@ -144,12 +143,11 @@ public class OAuthConnectionLocalServiceImpl
 		oAuthConnection.setKey(key);
 		oAuthConnection.setSecret(secret);
 		oAuthConnection.setScope(scope);
-		oAuthConnection.setGraphURL(graphURL);
 		oAuthConnection.setAuthorizeURL(authorizeURL);
 		oAuthConnection.setAccessTokenURL(accessTokenURL);
 		oAuthConnection.setAccessTokenVerb(accessTokenVerb);
-		oAuthConnection.setAccessTokenExtratorType(accessTokenExtratorType);
-		oAuthConnection.setAccessTokenExtratorScript(accessTokenExtratorScript);
+		oAuthConnection.setAccessTokenExtractorType(accessTokenExtractorType);
+		oAuthConnection.setAccessTokenExtractorScript(accessTokenExtractorScript);
 		oAuthConnection.setRequestTokenURL(requestTokenURL);
 		oAuthConnection.setRequestTokenVerb(requestTokenVerb);
 		oAuthConnection.setRedirectURL(redirectURL);

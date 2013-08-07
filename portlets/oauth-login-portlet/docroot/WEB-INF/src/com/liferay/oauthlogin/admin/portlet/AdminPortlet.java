@@ -123,10 +123,10 @@ public class AdminPortlet extends MVCPortlet {
 			uploadPortletRequest, "accessTokenURL");
 		int accessTokenVerb = ParamUtil.getInteger(
 			uploadPortletRequest, "accessTokenVerb");
-		int accessTokenExtratorType = ParamUtil.getInteger(
-			uploadPortletRequest, "accessTokenExtratorType");
-		String accessTokenExtratorScript = ParamUtil.getString(
-			uploadPortletRequest, "accessTokenExtratorScript");
+		int accessTokenExtractorType = ParamUtil.getInteger(
+			uploadPortletRequest, "accessTokenExtractorType");
+		String accessTokenExtractorScript = ParamUtil.getString(
+			uploadPortletRequest, "accessTokenExtractorScript");
 		String requestTokenURL = ParamUtil.getString(
 			uploadPortletRequest, "requestTokenURL");
 		int requestTokenVerb = ParamUtil.getInteger(
@@ -160,8 +160,8 @@ public class AdminPortlet extends MVCPortlet {
 				OAuthConnectionLocalServiceUtil.addOAuthConnection(
 					enabled, name, description, oAuthVersion, key, secret,
 					scope, graphURL, authorizeURL, accessTokenURL,
-					accessTokenVerb, accessTokenExtratorType,
-					accessTokenExtratorScript, requestTokenURL,
+					accessTokenVerb, accessTokenExtractorType,
+					accessTokenExtractorScript, requestTokenURL,
 					requestTokenVerb, redirectURL, socialAccountIdURL,
 					socialAccountIdURLVerb,socialAccountIdField,
 					socialAccountIdType, socialAccountIdScript, icon,
@@ -220,8 +220,8 @@ public class AdminPortlet extends MVCPortlet {
 				OAuthConnectionLocalServiceUtil.updateOAuthConnection(
 					oAuthConnectionId, enabled, name, description,
 					oAuthVersion, key, secret, scope, graphURL, authorizeURL,
-					accessTokenURL, accessTokenVerb, accessTokenExtratorType,
-					accessTokenExtratorScript, requestTokenURL,
+					accessTokenURL, accessTokenVerb, accessTokenExtractorType,
+					accessTokenExtractorScript, requestTokenURL,
 					requestTokenVerb, redirectURL, socialAccountIdURL,
 					socialAccountIdURLVerb, socialAccountIdField,
 					socialAccountIdType, socialAccountIdScript, icon,

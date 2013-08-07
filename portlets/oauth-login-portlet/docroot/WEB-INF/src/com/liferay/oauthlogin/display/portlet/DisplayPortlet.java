@@ -88,7 +88,7 @@ public class DisplayPortlet extends MVCPortlet {
 				oAuthConnection.getKey(), oAuthConnection.getSecret(),
 				accessTokenURL, authorizeURL, oAuthConnection.getRedirectURL(),
 				oAuthConnection.getScope(), accessTokenVerb,
-				oAuthConnection.getAccessTokenExtratorType());
+				oAuthConnection.getAccessTokenExtractorType());
 
 			requestToken = OAuthFactoryUtil.createToken(
 				oAuthConnection.getKey(), oAuthConnection.getSecret());

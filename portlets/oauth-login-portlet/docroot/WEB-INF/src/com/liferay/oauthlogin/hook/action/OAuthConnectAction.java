@@ -126,7 +126,7 @@ public class OAuthConnectAction extends BaseStrutsAction {
 					accessTokenURL, oAuthConnection.getAuthorizeURL(),
 					oAuthConnection.getRedirectURL(),
 					oAuthConnection.getScope(), accessTokenVerb,
-					oAuthConnection.getAccessTokenExtratorType());
+					oAuthConnection.getAccessTokenExtractorType());
 
 				requestToken = OAuthFactoryUtil.createToken(
 					oAuthConnection.getKey(), oAuthConnection.getSecret());
@@ -211,7 +211,7 @@ public class OAuthConnectAction extends BaseStrutsAction {
 		String socialAccountId = StringPool.BLANK;
 
 		if (oAuthConnection.getSocialAccountIdType() ==
-			OAuthConstants.EXTRATOR_JSON_OBJECT) {
+			OAuthConstants.EXTRACTOR_JSON_OBJECT) {
 
 			try {
 				JSONObject jsonObject =
