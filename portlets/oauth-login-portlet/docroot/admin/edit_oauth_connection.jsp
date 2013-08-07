@@ -47,7 +47,7 @@ OAuthConnection oAuthConnection = (OAuthConnection)request.getAttribute(WebKeys.
 
 		<liferay-ui:panel collapsible="<%= true %>" extended="<%= true %>" id="oAuthConnectionOAuthInfo" persistState="<%= true %>" title="oAuthConnection-OAuth-info">
 			<aui:fieldset>
-				<aui:select name="oAuthVersion">
+				<aui:select helpMessage="oauth-version-help" label="oauth-version" name="oAuthVersion">
 					<aui:option label="<%= OAuthConstants.LABEL_OAUTH_20 %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getOAuthVersion() == OAuthConstants.OAUTH_20) %>" value="<%= OAuthConstants.OAUTH_20 %>" />
 					<aui:option label="<%= OAuthConstants.LABEL_OAUTH_10A %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getOAuthVersion() == OAuthConstants.OAUTH_10A) %>" value="<%= OAuthConstants.OAUTH_10A %>" />
 				</aui:select>
@@ -55,8 +55,6 @@ OAuthConnection oAuthConnection = (OAuthConnection)request.getAttribute(WebKeys.
 				<aui:input name="key" />
 
 				<aui:input name="secret" />
-
-				<aui:input label="graph-url" name="graphURL" />
 
 				<aui:input name="scope" />
 
@@ -70,7 +68,7 @@ OAuthConnection oAuthConnection = (OAuthConnection)request.getAttribute(WebKeys.
 				</aui:select>
 
 				<div id="<portlet:namespace />accessTokenExtratorTypeDiv">
-					<aui:select name="accessTokenExtratorType">
+					<aui:select helpMessage="access-token-extrator-type-help" name="accessTokenExtratorType">
 						<aui:option label="<%= OAuthConstants.LABEL_EXTRATOR_DEFAULT %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getAccessTokenExtratorType() == OAuthConstants.EXTRATOR_DEFAULT) %>" value="<%= OAuthConstants.EXTRATOR_DEFAULT %>" />
 						<aui:option label="<%= OAuthConstants.LABEL_EXTRATOR_JSON_OBJECT %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getAccessTokenExtratorType() == OAuthConstants.EXTRATOR_JSON_OBJECT) %>" value="<%= OAuthConstants.EXTRATOR_JSON_OBJECT %>" />
 						<aui:option label="<%= OAuthConstants.LABEL_EXTRATOR_CUSTOM %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getAccessTokenExtratorType() == OAuthConstants.EXTRATOR_CUSTOM) %>" value="<%= OAuthConstants.EXTRATOR_CUSTOM %>" />
@@ -103,12 +101,10 @@ OAuthConnection oAuthConnection = (OAuthConnection)request.getAttribute(WebKeys.
 					<aui:option label="<%= OAuthConstants.LABEL_POST %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getSocialAccountIdURLVerb() == OAuthConstants.POST) %>" value="<%= OAuthConstants.POST %>" />
 				</aui:select>
 
-				<div id="<portlet:namespace />socialAccountIdTypeDiv">
-					<aui:select name="socialAccountIdType">
-						<aui:option label="<%= OAuthConstants.LABEL_EXTRATOR_JSON_OBJECT %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getSocialAccountIdType() == OAuthConstants.EXTRATOR_JSON_OBJECT) %>" value="<%= OAuthConstants.EXTRATOR_JSON_OBJECT %>" />
-						<aui:option label="<%= OAuthConstants.LABEL_EXTRATOR_CUSTOM %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getSocialAccountIdType() == OAuthConstants.EXTRATOR_CUSTOM) %>" value="<%= OAuthConstants.EXTRATOR_CUSTOM %>" />
-					</aui:select>
-				</div>
+				<aui:select name="socialAccountIdType">
+					<aui:option label="<%= OAuthConstants.LABEL_EXTRATOR_JSON_OBJECT %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getSocialAccountIdType() == OAuthConstants.EXTRATOR_JSON_OBJECT) %>" value="<%= OAuthConstants.EXTRATOR_JSON_OBJECT %>" />
+					<aui:option label="<%= OAuthConstants.LABEL_EXTRATOR_CUSTOM %>" selected="<%= (oAuthConnection != null) && (oAuthConnection.getSocialAccountIdType() == OAuthConstants.EXTRATOR_CUSTOM) %>" value="<%= OAuthConstants.EXTRATOR_CUSTOM %>" />
+				</aui:select>
 
 				<div id="<portlet:namespace />socialAccountIdFieldDiv">
 					<aui:input label="social-account-id-field" name="socialAccountIdField" />
@@ -145,8 +141,11 @@ OAuthConnection oAuthConnection = (OAuthConnection)request.getAttribute(WebKeys.
 		accessTokenExtratorScriptDiv.hide();
 	}
 
-	if (socialAccountIdType.value != <%= OAuthConstants.EXTRATOR_CUSTOM %>) {
+	if (socialAccountIdType.val() != <%= OAuthConstants.EXTRATOR_CUSTOM %>) {
 		socialAccountIdScriptDiv.hide();
+	}
+	else {
+		socialAccountIdFieldDiv.hide();
 	}
 
 	oAuthVersion.on(
