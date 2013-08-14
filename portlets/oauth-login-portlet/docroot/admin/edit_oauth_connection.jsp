@@ -32,11 +32,11 @@ OAuthConnection oAuthConnection = (OAuthConnection)request.getAttribute(WebKeys.
 <aui:form action="<%= updateOAuthConnectionURL %>" enctype="multipart/form-data" method="post" name="fm">
 	<aui:model-context bean="<%= oAuthConnection %>" model="<%= OAuthConnection.class %>" />
 
-	<aui:input name="oAuthConnectionId" type="hidden" value="<%= (oAuthConnection != null) ? oAuthConnection.getOAuthConnectionId():0 %>" />
+	<aui:input name="oAuthConnectionId" type="hidden" value="<%= (oAuthConnection != null) ? oAuthConnection.getOAuthConnectionId(): 0 %>" />
 
 	<liferay-ui:panel-container extended="<%= true %>" id="oAuthConnectionPanelContainer" persistState="<%= true %>">
 		<aui:fieldset>
-			<aui:input name="enabled" type="checkbox" value="<%= (oAuthConnection != null) && (oAuthConnection.getEnabled()) %>" />
+			<aui:input name="enabled" type="checkbox" />
 
 			<aui:input name="name" />
 

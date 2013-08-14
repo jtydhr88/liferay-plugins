@@ -24,17 +24,24 @@ import com.liferay.portal.kernel.oauth.OAuthFactoryUtil;
 import com.liferay.portal.kernel.oauth.OAuthManager;
 import com.liferay.portal.kernel.oauth.Token;
 import com.liferay.portal.kernel.oauth.Verb;
+import com.liferay.portal.kernel.portlet.LiferayWindowState;
+import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.User;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.util.PortletKeys;
+import com.liferay.portlet.PortletURLFactoryUtil;
 import com.liferay.portlet.expando.model.ExpandoTableConstants;
 import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletMode;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletURL;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -46,6 +53,9 @@ public class DisplayPortlet extends MVCPortlet {
 	public void getAuthorizeURL(
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
 
 		long oAuthConnectionId = ParamUtil.getLong(
 			actionRequest, "oAuthConnectionId");
@@ -68,10 +78,24 @@ public class DisplayPortlet extends MVCPortlet {
 
 		Token requestToken = null;
 
-		HttpServletRequest request = PortalUtil.getHttpServletRequest(
-			actionRequest);
+		String redirectURL = oAuthConnection.getRedirectURL();
 
-		HttpSession session = request.getSession();
+		PortletURL loginRedirectURL = PortletURLFactoryUtil.create(
+			actionRequest, PortletKeys.LOGIN, themeDisplay.getPlid(),
+			PortletRequest.RENDER_PHASE);
+
+		loginRedirectURL.setWindowState(LiferayWindowState.POP_UP);
+		loginRedirectURL.setPortletMode(PortletMode.VIEW);
+		loginRedirectURL.setParameter(
+			"struts_action", "/login/login_redirect");
+
+		redirectURL = HttpUtil.addParameter(
+			redirectURL, "redirect", HttpUtil.encodeURL(
+				loginRedirectURL.toString()));
+
+		redirectURL = HttpUtil.addParameter(
+			redirectURL, "oAuthConnectionId", String.valueOf(
+				oAuthConnectionId));
 
 		if (oAuthConnection.getOAuthVersion() == OAuthConstants.OAUTH_20) {
 			authorizeURL = authorizeURL +
@@ -86,7 +110,7 @@ public class DisplayPortlet extends MVCPortlet {
 
 			oAuthManager = OAuthFactoryUtil.createOAuthManager(
 				oAuthConnection.getKey(), oAuthConnection.getSecret(),
-				accessTokenURL, authorizeURL, oAuthConnection.getRedirectURL(),
+				accessTokenURL, authorizeURL, redirectURL,
 				oAuthConnection.getScope(), accessTokenVerb,
 				oAuthConnection.getAccessTokenExtractorType());
 
@@ -102,22 +126,25 @@ public class DisplayPortlet extends MVCPortlet {
 			oAuthManager = OAuthFactoryUtil.createOAuthManager(
 				oAuthConnection.getKey(), oAuthConnection.getSecret(),
 				accessTokenURL, authorizeURL, requestTokenURL,
-				oAuthConnection.getRedirectURL(),
-				oAuthConnection.getScope());
+				redirectURL, oAuthConnection.getScope());
 
 			requestToken = oAuthManager.getRequestToken();
 
-			session.setAttribute(
-				"LIFERAY_SHARED_requestToken", requestToken);
+			HttpServletRequest request = PortalUtil.getHttpServletRequest(
+				actionRequest);
+
+			HttpSession session = request.getSession();
+
+			session.setAttribute("requestToken", requestToken);
 		}
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
-		session.setAttribute(
-			"LIFERAY_SHARED_oAuthConnectionId", oAuthConnectionId);
-
 		jsonObject.put(
 			"authorizeURL", oAuthManager.getAuthorizeURL(requestToken));
+
+		jsonObject.put(
+			"oAuthName", oAuthConnection.getName());
 
 		writeJSON(actionRequest, actionResponse, jsonObject);
 	}

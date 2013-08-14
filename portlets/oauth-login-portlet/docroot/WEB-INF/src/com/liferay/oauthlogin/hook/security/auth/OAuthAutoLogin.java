@@ -45,11 +45,9 @@ public class OAuthAutoLogin extends BaseAutoLogin {
 		throws Exception {
 		HttpSession session = request.getSession();
 
-		Object socialAccountIdObj = session.getAttribute(
-			"LIFERAY_SHARED_socialAccountId");
+		Object socialAccountIdObj = session.getAttribute("socialAccountId");
 
-		Object oAuthConnectionIdObj = session.getAttribute(
-			"LIFERAY_SHARED_oAuthConnectionId");
+		Object oAuthConnectionIdObj = session.getAttribute("oAuthConnectionId");
 
 		long companyId = PortalUtil.getCompanyId(request);
 

@@ -65,8 +65,6 @@ public class AdminPortlet extends MVCPortlet {
 
 		OAuthConnectionLocalServiceUtil.deleteOAuthConnection(
 			oAuthConnectionId);
-
-		sendRedirect(actionRequest, actionResponse);
 	}
 
 	public void render(
@@ -87,13 +85,13 @@ public class AdminPortlet extends MVCPortlet {
 
 			renderRequest.setAttribute(
 				WebKeys.OAUTH_CONNECTION, oAuthConnection);
-
-			super.render(renderRequest, renderResponse);
 		}
 		catch (PortalException e) {
 		}
 		catch (SystemException e) {
 		}
+
+		super.render(renderRequest, renderResponse);
 	}
 
 	public void updateOAuthConnection(
@@ -108,7 +106,6 @@ public class AdminPortlet extends MVCPortlet {
 
 		boolean enabled = ParamUtil.getBoolean(uploadPortletRequest, "enabled");
 		String name = ParamUtil.getString(uploadPortletRequest, "name");
-
 		String description = ParamUtil.getString(
 			uploadPortletRequest, "description");
 		int oAuthVersion = ParamUtil.getInteger(
@@ -116,7 +113,6 @@ public class AdminPortlet extends MVCPortlet {
 		String key = ParamUtil.getString(uploadPortletRequest, "key");
 		String secret = ParamUtil.getString(uploadPortletRequest, "secret");
 		String scope = ParamUtil.getString(uploadPortletRequest, "scope");
-		String graphURL = ParamUtil.getString(uploadPortletRequest, "graphURL");
 		String authorizeURL = ParamUtil.getString(
 			uploadPortletRequest, "authorizeURL");
 		String accessTokenURL = ParamUtil.getString(
@@ -159,14 +155,12 @@ public class AdminPortlet extends MVCPortlet {
 			oAuthConnection =
 				OAuthConnectionLocalServiceUtil.addOAuthConnection(
 					enabled, name, description, oAuthVersion, key, secret,
-					scope, graphURL, authorizeURL, accessTokenURL,
-					accessTokenVerb, accessTokenExtractorType,
-					accessTokenExtractorScript, requestTokenURL,
-					requestTokenVerb, redirectURL, socialAccountIdURL,
-					socialAccountIdURLVerb,socialAccountIdField,
-					socialAccountIdType, socialAccountIdScript, icon,
-					serviceContext);
-
+					scope, authorizeURL, accessTokenURL, accessTokenVerb,
+					accessTokenExtractorType, accessTokenExtractorScript,
+					requestTokenURL, requestTokenVerb, redirectURL,
+					socialAccountIdURL, socialAccountIdURLVerb,
+					socialAccountIdField, socialAccountIdType,
+					socialAccountIdScript, icon, serviceContext);
 			try {
 				expandoTable = ExpandoTableLocalServiceUtil.addTable(
 					PortalUtil.getCompanyId(uploadPortletRequest),
@@ -216,16 +210,14 @@ public class AdminPortlet extends MVCPortlet {
 				actionIds);
 		}
 		else {
-			oAuthConnection =
-				OAuthConnectionLocalServiceUtil.updateOAuthConnection(
-					oAuthConnectionId, enabled, name, description,
-					oAuthVersion, key, secret, scope, graphURL, authorizeURL,
-					accessTokenURL, accessTokenVerb, accessTokenExtractorType,
-					accessTokenExtractorScript, requestTokenURL,
-					requestTokenVerb, redirectURL, socialAccountIdURL,
-					socialAccountIdURLVerb, socialAccountIdField,
-					socialAccountIdType, socialAccountIdScript, icon,
-					serviceContext);
+			OAuthConnectionLocalServiceUtil.updateOAuthConnection(
+				oAuthConnectionId, enabled, name, description, oAuthVersion,
+				key, secret, scope, authorizeURL, accessTokenURL,
+				accessTokenVerb, accessTokenExtractorType,
+				accessTokenExtractorScript, requestTokenURL, requestTokenVerb,
+				redirectURL, socialAccountIdURL, socialAccountIdURLVerb,
+				socialAccountIdField, socialAccountIdType,
+				socialAccountIdScript, icon, serviceContext);
 		}
 	}
 

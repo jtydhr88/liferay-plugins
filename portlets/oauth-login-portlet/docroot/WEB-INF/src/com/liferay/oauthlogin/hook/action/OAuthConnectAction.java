@@ -65,16 +65,14 @@ public class OAuthConnectAction extends BaseStrutsAction {
 
 		HttpSession session = request.getSession();
 
-		long oAuthConnectionId = (Long)session.getAttribute(
-			"LIFERAY_SHARED_oAuthConnectionId");
+		String redirect = ParamUtil.getString(request, "redirect");
+
+		long oAuthConnectionId = ParamUtil.getLong(
+			request, "oAuthConnectionId");
 
 		OAuthConnection oAuthConnection =
 			OAuthConnectionLocalServiceUtil.getOAuthConnection(
 				oAuthConnectionId);
-
-		String redirectURL = PortalUtil.getHomeURL(request);
-
-		session.removeAttribute("LIFERAY_SHARED_oAuthConnectionId");
 
 		if (!oAuthConnection.isEnabled()) {
 			throw new PrincipalException();
@@ -115,10 +113,9 @@ public class OAuthConnectAction extends BaseStrutsAction {
 					oAuthConnection.getRedirectURL(),
 					oAuthConnection.getScope());
 
-				requestToken = (Token)session.getAttribute(
-					"LIFERAY_SHARED_requestToken");
+				requestToken = (Token)session.getAttribute("requestToken");
 
-				session.removeAttribute("LIFERAY_SHARED_requestToken");
+				session.removeAttribute("requestToken");
 			}
 			else {
 				oAuthManager = OAuthFactoryUtil.createOAuthManager(
@@ -174,15 +171,13 @@ public class OAuthConnectAction extends BaseStrutsAction {
 						socialAccountId, QueryUtil.ALL_POS,
 						QueryUtil.ALL_POS);
 
-				session.setAttribute(
-					"LIFERAY_SHARED_socialAccountId", socialAccountId);
+				session.setAttribute("socialAccountId", socialAccountId);
 
-				session.setAttribute(
-					"LIFERAY_SHARED_oAuthConnectionId", oAuthConnectionId);
+				session.setAttribute("oAuthConnectionId", oAuthConnectionId);
 
 				if (expandoValues.size() == 0) {
 					if (userId == themeDisplay.getDefaultUserId()) {
-						redirectURL = PortalUtil.getCreateAccountURL(
+						redirect = PortalUtil.getCreateAccountURL(
 							request, themeDisplay);
 					}
 					else {
@@ -200,7 +195,7 @@ public class OAuthConnectAction extends BaseStrutsAction {
 			}
 		}
 
-		response.sendRedirect(redirectURL);
+		response.sendRedirect(redirect);
 
 		return null;
 	}
