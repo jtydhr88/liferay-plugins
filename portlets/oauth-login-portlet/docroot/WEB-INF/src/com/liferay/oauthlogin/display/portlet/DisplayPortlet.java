@@ -78,47 +78,26 @@ public class DisplayPortlet extends MVCPortlet {
 
 		Token requestToken = null;
 
-		String redirectURL = oAuthConnection.getRedirectURL();
+		String redirectURL =  oAuthConnection.getRedirectURL();
 
 		PortletURL loginRedirectURL = PortletURLFactoryUtil.create(
 			actionRequest, PortletKeys.LOGIN, themeDisplay.getPlid(),
 			PortletRequest.RENDER_PHASE);
 
-		loginRedirectURL.setWindowState(LiferayWindowState.POP_UP);
 		loginRedirectURL.setPortletMode(PortletMode.VIEW);
 		loginRedirectURL.setParameter(
 			"struts_action", "/login/login_redirect");
+		loginRedirectURL.setParameter(
+			"anonymousUser", Boolean.FALSE.toString());
 
 		redirectURL = HttpUtil.addParameter(
-			redirectURL, "redirect", HttpUtil.encodeURL(
-				loginRedirectURL.toString()));
+			redirectURL, "redirect", loginRedirectURL.toString());
 
 		redirectURL = HttpUtil.addParameter(
 			redirectURL, "oAuthConnectionId", String.valueOf(
 				oAuthConnectionId));
 
-		if (oAuthConnection.getOAuthVersion() == OAuthConstants.OAUTH_20) {
-			authorizeURL = authorizeURL +
-				"?client_id=%s&redirect_uri=%s&response_type=code";
-
-			accessTokenURL = oAuthConnection.getAccessTokenURL() +
-				"?grant_type=authorization_code";
-
-			if (Validator.isNotNull(oAuthConnection.getScope())) {
-				authorizeURL = authorizeURL + "&scope=%s";
-			}
-
-			oAuthManager = OAuthFactoryUtil.createOAuthManager(
-				oAuthConnection.getKey(), oAuthConnection.getSecret(),
-				accessTokenURL, authorizeURL, redirectURL,
-				oAuthConnection.getScope(), accessTokenVerb,
-				oAuthConnection.getAccessTokenExtractorType());
-
-			requestToken = OAuthFactoryUtil.createToken(
-				oAuthConnection.getKey(), oAuthConnection.getSecret());
-
-		}
-		else {
+		if (oAuthConnection.getOAuthVersion() == OAuthConstants.OAUTH_10A) {
 			authorizeURL = authorizeURL + "?oauth_token=%s";
 
 			String requestTokenURL = oAuthConnection.getRequestTokenURL();
@@ -137,14 +116,28 @@ public class DisplayPortlet extends MVCPortlet {
 
 			session.setAttribute("requestToken", requestToken);
 		}
+		else {
+			authorizeURL = authorizeURL +
+				"?client_id=%s&redirect_uri=%s&response_type=code";
+
+			accessTokenURL = oAuthConnection.getAccessTokenURL() +
+				"?grant_type=authorization_code";
+
+			if (Validator.isNotNull(oAuthConnection.getScope())) {
+				authorizeURL = authorizeURL + "&scope=%s";
+			}
+
+			oAuthManager = OAuthFactoryUtil.createOAuthManager(
+				oAuthConnection.getKey(), oAuthConnection.getSecret(),
+				accessTokenURL, authorizeURL, redirectURL,
+				oAuthConnection.getScope(), accessTokenVerb,
+				oAuthConnection.getAccessTokenExtractorType());
+		}
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
 		jsonObject.put(
 			"authorizeURL", oAuthManager.getAuthorizeURL(requestToken));
-
-		jsonObject.put(
-			"oAuthName", oAuthConnection.getName());
 
 		writeJSON(actionRequest, actionResponse, jsonObject);
 	}
