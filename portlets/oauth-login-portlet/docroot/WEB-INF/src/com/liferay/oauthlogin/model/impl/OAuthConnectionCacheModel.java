@@ -38,7 +38,7 @@ public class OAuthConnectionCacheModel implements CacheModel<OAuthConnection>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(55);
+		StringBundler sb = new StringBundler(53);
 
 		sb.append("{oAuthConnectionId=");
 		sb.append(oAuthConnectionId);
@@ -66,18 +66,16 @@ public class OAuthConnectionCacheModel implements CacheModel<OAuthConnection>,
 		sb.append(secret);
 		sb.append(", scope=");
 		sb.append(scope);
-		sb.append(", graphURL=");
-		sb.append(graphURL);
 		sb.append(", authorizeURL=");
 		sb.append(authorizeURL);
 		sb.append(", accessTokenURL=");
 		sb.append(accessTokenURL);
 		sb.append(", accessTokenVerb=");
 		sb.append(accessTokenVerb);
-		sb.append(", accessTokenExtratorType=");
-		sb.append(accessTokenExtratorType);
-		sb.append(", accessTokenExtratorScript=");
-		sb.append(accessTokenExtratorScript);
+		sb.append(", accessTokenExtractorType=");
+		sb.append(accessTokenExtractorType);
+		sb.append(", accessTokenExtractorScript=");
+		sb.append(accessTokenExtractorScript);
 		sb.append(", requestTokenURL=");
 		sb.append(requestTokenURL);
 		sb.append(", requestTokenVerb=");
@@ -161,13 +159,6 @@ public class OAuthConnectionCacheModel implements CacheModel<OAuthConnection>,
 			oAuthConnectionImpl.setScope(scope);
 		}
 
-		if (graphURL == null) {
-			oAuthConnectionImpl.setGraphURL(StringPool.BLANK);
-		}
-		else {
-			oAuthConnectionImpl.setGraphURL(graphURL);
-		}
-
 		if (authorizeURL == null) {
 			oAuthConnectionImpl.setAuthorizeURL(StringPool.BLANK);
 		}
@@ -183,13 +174,13 @@ public class OAuthConnectionCacheModel implements CacheModel<OAuthConnection>,
 		}
 
 		oAuthConnectionImpl.setAccessTokenVerb(accessTokenVerb);
-		oAuthConnectionImpl.setAccessTokenExtratorType(accessTokenExtratorType);
+		oAuthConnectionImpl.setAccessTokenExtractorType(accessTokenExtractorType);
 
-		if (accessTokenExtratorScript == null) {
-			oAuthConnectionImpl.setAccessTokenExtratorScript(StringPool.BLANK);
+		if (accessTokenExtractorScript == null) {
+			oAuthConnectionImpl.setAccessTokenExtractorScript(StringPool.BLANK);
 		}
 		else {
-			oAuthConnectionImpl.setAccessTokenExtratorScript(accessTokenExtratorScript);
+			oAuthConnectionImpl.setAccessTokenExtractorScript(accessTokenExtractorScript);
 		}
 
 		if (requestTokenURL == null) {
@@ -253,12 +244,11 @@ public class OAuthConnectionCacheModel implements CacheModel<OAuthConnection>,
 		key = objectInput.readUTF();
 		secret = objectInput.readUTF();
 		scope = objectInput.readUTF();
-		graphURL = objectInput.readUTF();
 		authorizeURL = objectInput.readUTF();
 		accessTokenURL = objectInput.readUTF();
 		accessTokenVerb = objectInput.readInt();
-		accessTokenExtratorType = objectInput.readInt();
-		accessTokenExtratorScript = objectInput.readUTF();
+		accessTokenExtractorType = objectInput.readInt();
+		accessTokenExtractorScript = objectInput.readUTF();
 		requestTokenURL = objectInput.readUTF();
 		requestTokenVerb = objectInput.readInt();
 		redirectURL = objectInput.readUTF();
@@ -317,13 +307,6 @@ public class OAuthConnectionCacheModel implements CacheModel<OAuthConnection>,
 			objectOutput.writeUTF(scope);
 		}
 
-		if (graphURL == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(graphURL);
-		}
-
 		if (authorizeURL == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
@@ -339,13 +322,13 @@ public class OAuthConnectionCacheModel implements CacheModel<OAuthConnection>,
 		}
 
 		objectOutput.writeInt(accessTokenVerb);
-		objectOutput.writeInt(accessTokenExtratorType);
+		objectOutput.writeInt(accessTokenExtractorType);
 
-		if (accessTokenExtratorScript == null) {
+		if (accessTokenExtractorScript == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
 		else {
-			objectOutput.writeUTF(accessTokenExtratorScript);
+			objectOutput.writeUTF(accessTokenExtractorScript);
 		}
 
 		if (requestTokenURL == null) {
@@ -403,12 +386,11 @@ public class OAuthConnectionCacheModel implements CacheModel<OAuthConnection>,
 	public String key;
 	public String secret;
 	public String scope;
-	public String graphURL;
 	public String authorizeURL;
 	public String accessTokenURL;
 	public int accessTokenVerb;
-	public int accessTokenExtratorType;
-	public String accessTokenExtratorScript;
+	public int accessTokenExtractorType;
+	public String accessTokenExtractorScript;
 	public String requestTokenURL;
 	public int requestTokenVerb;
 	public String redirectURL;

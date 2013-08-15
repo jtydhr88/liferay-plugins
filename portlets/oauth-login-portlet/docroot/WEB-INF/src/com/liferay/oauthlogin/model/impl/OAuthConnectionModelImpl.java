@@ -75,12 +75,11 @@ public class OAuthConnectionModelImpl extends BaseModelImpl<OAuthConnection>
 			{ "key_", Types.VARCHAR },
 			{ "secret", Types.VARCHAR },
 			{ "scope", Types.VARCHAR },
-			{ "graphURL", Types.VARCHAR },
 			{ "authorizeURL", Types.VARCHAR },
 			{ "accessTokenURL", Types.VARCHAR },
 			{ "accessTokenVerb", Types.INTEGER },
-			{ "accessTokenExtratorType", Types.INTEGER },
-			{ "accessTokenExtratorScript", Types.VARCHAR },
+			{ "accessTokenExtractorType", Types.INTEGER },
+			{ "accessTokenExtractorScript", Types.VARCHAR },
 			{ "requestTokenURL", Types.VARCHAR },
 			{ "requestTokenVerb", Types.INTEGER },
 			{ "redirectURL", Types.VARCHAR },
@@ -90,7 +89,7 @@ public class OAuthConnectionModelImpl extends BaseModelImpl<OAuthConnection>
 			{ "socialAccountIdType", Types.INTEGER },
 			{ "socialAccountIdScript", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table OAuthLogin_OAuthConnection (oAuthConnectionId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,enabled BOOLEAN,name VARCHAR(75) null,description VARCHAR(75) null,iconId LONG,oAuthVersion INTEGER,key_ VARCHAR(75) null,secret VARCHAR(75) null,scope VARCHAR(75) null,graphURL VARCHAR(75) null,authorizeURL VARCHAR(75) null,accessTokenURL VARCHAR(75) null,accessTokenVerb INTEGER,accessTokenExtratorType INTEGER,accessTokenExtratorScript VARCHAR(75) null,requestTokenURL VARCHAR(75) null,requestTokenVerb INTEGER,redirectURL VARCHAR(75) null,socialAccountIdURL VARCHAR(75) null,socialAccountIdURLVerb INTEGER,socialAccountIdField VARCHAR(75) null,socialAccountIdType INTEGER,socialAccountIdScript VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table OAuthLogin_OAuthConnection (oAuthConnectionId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,enabled BOOLEAN,name VARCHAR(75) null,description VARCHAR(75) null,iconId LONG,oAuthVersion INTEGER,key_ VARCHAR(75) null,secret VARCHAR(75) null,scope VARCHAR(75) null,authorizeURL VARCHAR(75) null,accessTokenURL VARCHAR(75) null,accessTokenVerb INTEGER,accessTokenExtractorType INTEGER,accessTokenExtractorScript VARCHAR(75) null,requestTokenURL VARCHAR(75) null,requestTokenVerb INTEGER,redirectURL VARCHAR(75) null,socialAccountIdURL VARCHAR(75) null,socialAccountIdURLVerb INTEGER,socialAccountIdField VARCHAR(75) null,socialAccountIdType INTEGER,socialAccountIdScript VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table OAuthLogin_OAuthConnection";
 	public static final String ORDER_BY_JPQL = " ORDER BY oAuthConnection.createDate DESC";
 	public static final String ORDER_BY_SQL = " ORDER BY OAuthLogin_OAuthConnection.createDate DESC";
@@ -161,13 +160,12 @@ public class OAuthConnectionModelImpl extends BaseModelImpl<OAuthConnection>
 		attributes.put("key", getKey());
 		attributes.put("secret", getSecret());
 		attributes.put("scope", getScope());
-		attributes.put("graphURL", getGraphURL());
 		attributes.put("authorizeURL", getAuthorizeURL());
 		attributes.put("accessTokenURL", getAccessTokenURL());
 		attributes.put("accessTokenVerb", getAccessTokenVerb());
-		attributes.put("accessTokenExtratorType", getAccessTokenExtratorType());
-		attributes.put("accessTokenExtratorScript",
-			getAccessTokenExtratorScript());
+		attributes.put("accessTokenExtractorType", getAccessTokenExtractorType());
+		attributes.put("accessTokenExtractorScript",
+			getAccessTokenExtractorScript());
 		attributes.put("requestTokenURL", getRequestTokenURL());
 		attributes.put("requestTokenVerb", getRequestTokenVerb());
 		attributes.put("redirectURL", getRedirectURL());
@@ -260,12 +258,6 @@ public class OAuthConnectionModelImpl extends BaseModelImpl<OAuthConnection>
 			setScope(scope);
 		}
 
-		String graphURL = (String)attributes.get("graphURL");
-
-		if (graphURL != null) {
-			setGraphURL(graphURL);
-		}
-
 		String authorizeURL = (String)attributes.get("authorizeURL");
 
 		if (authorizeURL != null) {
@@ -284,18 +276,18 @@ public class OAuthConnectionModelImpl extends BaseModelImpl<OAuthConnection>
 			setAccessTokenVerb(accessTokenVerb);
 		}
 
-		Integer accessTokenExtratorType = (Integer)attributes.get(
-				"accessTokenExtratorType");
+		Integer accessTokenExtractorType = (Integer)attributes.get(
+				"accessTokenExtractorType");
 
-		if (accessTokenExtratorType != null) {
-			setAccessTokenExtratorType(accessTokenExtratorType);
+		if (accessTokenExtractorType != null) {
+			setAccessTokenExtractorType(accessTokenExtractorType);
 		}
 
-		String accessTokenExtratorScript = (String)attributes.get(
-				"accessTokenExtratorScript");
+		String accessTokenExtractorScript = (String)attributes.get(
+				"accessTokenExtractorScript");
 
-		if (accessTokenExtratorScript != null) {
-			setAccessTokenExtratorScript(accessTokenExtratorScript);
+		if (accessTokenExtractorScript != null) {
+			setAccessTokenExtractorScript(accessTokenExtractorScript);
 		}
 
 		String requestTokenURL = (String)attributes.get("requestTokenURL");
@@ -536,21 +528,6 @@ public class OAuthConnectionModelImpl extends BaseModelImpl<OAuthConnection>
 	}
 
 	@Override
-	public String getGraphURL() {
-		if (_graphURL == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _graphURL;
-		}
-	}
-
-	@Override
-	public void setGraphURL(String graphURL) {
-		_graphURL = graphURL;
-	}
-
-	@Override
 	public String getAuthorizeURL() {
 		if (_authorizeURL == null) {
 			return StringPool.BLANK;
@@ -591,28 +568,28 @@ public class OAuthConnectionModelImpl extends BaseModelImpl<OAuthConnection>
 	}
 
 	@Override
-	public int getAccessTokenExtratorType() {
-		return _accessTokenExtratorType;
+	public int getAccessTokenExtractorType() {
+		return _accessTokenExtractorType;
 	}
 
 	@Override
-	public void setAccessTokenExtratorType(int accessTokenExtratorType) {
-		_accessTokenExtratorType = accessTokenExtratorType;
+	public void setAccessTokenExtractorType(int accessTokenExtractorType) {
+		_accessTokenExtractorType = accessTokenExtractorType;
 	}
 
 	@Override
-	public String getAccessTokenExtratorScript() {
-		if (_accessTokenExtratorScript == null) {
+	public String getAccessTokenExtractorScript() {
+		if (_accessTokenExtractorScript == null) {
 			return StringPool.BLANK;
 		}
 		else {
-			return _accessTokenExtratorScript;
+			return _accessTokenExtractorScript;
 		}
 	}
 
 	@Override
-	public void setAccessTokenExtratorScript(String accessTokenExtratorScript) {
-		_accessTokenExtratorScript = accessTokenExtratorScript;
+	public void setAccessTokenExtractorScript(String accessTokenExtractorScript) {
+		_accessTokenExtractorScript = accessTokenExtractorScript;
 	}
 
 	@Override
@@ -764,12 +741,11 @@ public class OAuthConnectionModelImpl extends BaseModelImpl<OAuthConnection>
 		oAuthConnectionImpl.setKey(getKey());
 		oAuthConnectionImpl.setSecret(getSecret());
 		oAuthConnectionImpl.setScope(getScope());
-		oAuthConnectionImpl.setGraphURL(getGraphURL());
 		oAuthConnectionImpl.setAuthorizeURL(getAuthorizeURL());
 		oAuthConnectionImpl.setAccessTokenURL(getAccessTokenURL());
 		oAuthConnectionImpl.setAccessTokenVerb(getAccessTokenVerb());
-		oAuthConnectionImpl.setAccessTokenExtratorType(getAccessTokenExtratorType());
-		oAuthConnectionImpl.setAccessTokenExtratorScript(getAccessTokenExtratorScript());
+		oAuthConnectionImpl.setAccessTokenExtractorType(getAccessTokenExtractorType());
+		oAuthConnectionImpl.setAccessTokenExtractorScript(getAccessTokenExtractorScript());
 		oAuthConnectionImpl.setRequestTokenURL(getRequestTokenURL());
 		oAuthConnectionImpl.setRequestTokenVerb(getRequestTokenVerb());
 		oAuthConnectionImpl.setRedirectURL(getRedirectURL());
@@ -912,14 +888,6 @@ public class OAuthConnectionModelImpl extends BaseModelImpl<OAuthConnection>
 			oAuthConnectionCacheModel.scope = null;
 		}
 
-		oAuthConnectionCacheModel.graphURL = getGraphURL();
-
-		String graphURL = oAuthConnectionCacheModel.graphURL;
-
-		if ((graphURL != null) && (graphURL.length() == 0)) {
-			oAuthConnectionCacheModel.graphURL = null;
-		}
-
 		oAuthConnectionCacheModel.authorizeURL = getAuthorizeURL();
 
 		String authorizeURL = oAuthConnectionCacheModel.authorizeURL;
@@ -938,15 +906,15 @@ public class OAuthConnectionModelImpl extends BaseModelImpl<OAuthConnection>
 
 		oAuthConnectionCacheModel.accessTokenVerb = getAccessTokenVerb();
 
-		oAuthConnectionCacheModel.accessTokenExtratorType = getAccessTokenExtratorType();
+		oAuthConnectionCacheModel.accessTokenExtractorType = getAccessTokenExtractorType();
 
-		oAuthConnectionCacheModel.accessTokenExtratorScript = getAccessTokenExtratorScript();
+		oAuthConnectionCacheModel.accessTokenExtractorScript = getAccessTokenExtractorScript();
 
-		String accessTokenExtratorScript = oAuthConnectionCacheModel.accessTokenExtratorScript;
+		String accessTokenExtractorScript = oAuthConnectionCacheModel.accessTokenExtractorScript;
 
-		if ((accessTokenExtratorScript != null) &&
-				(accessTokenExtratorScript.length() == 0)) {
-			oAuthConnectionCacheModel.accessTokenExtratorScript = null;
+		if ((accessTokenExtractorScript != null) &&
+				(accessTokenExtractorScript.length() == 0)) {
+			oAuthConnectionCacheModel.accessTokenExtractorScript = null;
 		}
 
 		oAuthConnectionCacheModel.requestTokenURL = getRequestTokenURL();
@@ -1002,7 +970,7 @@ public class OAuthConnectionModelImpl extends BaseModelImpl<OAuthConnection>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(55);
+		StringBundler sb = new StringBundler(53);
 
 		sb.append("{oAuthConnectionId=");
 		sb.append(getOAuthConnectionId());
@@ -1030,18 +998,16 @@ public class OAuthConnectionModelImpl extends BaseModelImpl<OAuthConnection>
 		sb.append(getSecret());
 		sb.append(", scope=");
 		sb.append(getScope());
-		sb.append(", graphURL=");
-		sb.append(getGraphURL());
 		sb.append(", authorizeURL=");
 		sb.append(getAuthorizeURL());
 		sb.append(", accessTokenURL=");
 		sb.append(getAccessTokenURL());
 		sb.append(", accessTokenVerb=");
 		sb.append(getAccessTokenVerb());
-		sb.append(", accessTokenExtratorType=");
-		sb.append(getAccessTokenExtratorType());
-		sb.append(", accessTokenExtratorScript=");
-		sb.append(getAccessTokenExtratorScript());
+		sb.append(", accessTokenExtractorType=");
+		sb.append(getAccessTokenExtractorType());
+		sb.append(", accessTokenExtractorScript=");
+		sb.append(getAccessTokenExtractorScript());
 		sb.append(", requestTokenURL=");
 		sb.append(getRequestTokenURL());
 		sb.append(", requestTokenVerb=");
@@ -1065,7 +1031,7 @@ public class OAuthConnectionModelImpl extends BaseModelImpl<OAuthConnection>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(85);
+		StringBundler sb = new StringBundler(82);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.oauthlogin.model.OAuthConnection");
@@ -1124,10 +1090,6 @@ public class OAuthConnectionModelImpl extends BaseModelImpl<OAuthConnection>
 		sb.append(getScope());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>graphURL</column-name><column-value><![CDATA[");
-		sb.append(getGraphURL());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>authorizeURL</column-name><column-value><![CDATA[");
 		sb.append(getAuthorizeURL());
 		sb.append("]]></column-value></column>");
@@ -1140,12 +1102,12 @@ public class OAuthConnectionModelImpl extends BaseModelImpl<OAuthConnection>
 		sb.append(getAccessTokenVerb());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>accessTokenExtratorType</column-name><column-value><![CDATA[");
-		sb.append(getAccessTokenExtratorType());
+			"<column><column-name>accessTokenExtractorType</column-name><column-value><![CDATA[");
+		sb.append(getAccessTokenExtractorType());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>accessTokenExtratorScript</column-name><column-value><![CDATA[");
-		sb.append(getAccessTokenExtratorScript());
+			"<column><column-name>accessTokenExtractorScript</column-name><column-value><![CDATA[");
+		sb.append(getAccessTokenExtractorScript());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>requestTokenURL</column-name><column-value><![CDATA[");
@@ -1205,12 +1167,11 @@ public class OAuthConnectionModelImpl extends BaseModelImpl<OAuthConnection>
 	private String _key;
 	private String _secret;
 	private String _scope;
-	private String _graphURL;
 	private String _authorizeURL;
 	private String _accessTokenURL;
 	private int _accessTokenVerb;
-	private int _accessTokenExtratorType;
-	private String _accessTokenExtratorScript;
+	private int _accessTokenExtractorType;
+	private String _accessTokenExtractorScript;
 	private String _requestTokenURL;
 	private int _requestTokenVerb;
 	private String _redirectURL;

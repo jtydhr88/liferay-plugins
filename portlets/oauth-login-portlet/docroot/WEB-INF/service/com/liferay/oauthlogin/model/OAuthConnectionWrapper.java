@@ -63,13 +63,12 @@ public class OAuthConnectionWrapper implements OAuthConnection,
 		attributes.put("key", getKey());
 		attributes.put("secret", getSecret());
 		attributes.put("scope", getScope());
-		attributes.put("graphURL", getGraphURL());
 		attributes.put("authorizeURL", getAuthorizeURL());
 		attributes.put("accessTokenURL", getAccessTokenURL());
 		attributes.put("accessTokenVerb", getAccessTokenVerb());
-		attributes.put("accessTokenExtratorType", getAccessTokenExtratorType());
-		attributes.put("accessTokenExtratorScript",
-			getAccessTokenExtratorScript());
+		attributes.put("accessTokenExtractorType", getAccessTokenExtractorType());
+		attributes.put("accessTokenExtractorScript",
+			getAccessTokenExtractorScript());
 		attributes.put("requestTokenURL", getRequestTokenURL());
 		attributes.put("requestTokenVerb", getRequestTokenVerb());
 		attributes.put("redirectURL", getRedirectURL());
@@ -162,12 +161,6 @@ public class OAuthConnectionWrapper implements OAuthConnection,
 			setScope(scope);
 		}
 
-		String graphURL = (String)attributes.get("graphURL");
-
-		if (graphURL != null) {
-			setGraphURL(graphURL);
-		}
-
 		String authorizeURL = (String)attributes.get("authorizeURL");
 
 		if (authorizeURL != null) {
@@ -186,18 +179,18 @@ public class OAuthConnectionWrapper implements OAuthConnection,
 			setAccessTokenVerb(accessTokenVerb);
 		}
 
-		Integer accessTokenExtratorType = (Integer)attributes.get(
-				"accessTokenExtratorType");
+		Integer accessTokenExtractorType = (Integer)attributes.get(
+				"accessTokenExtractorType");
 
-		if (accessTokenExtratorType != null) {
-			setAccessTokenExtratorType(accessTokenExtratorType);
+		if (accessTokenExtractorType != null) {
+			setAccessTokenExtractorType(accessTokenExtractorType);
 		}
 
-		String accessTokenExtratorScript = (String)attributes.get(
-				"accessTokenExtratorScript");
+		String accessTokenExtractorScript = (String)attributes.get(
+				"accessTokenExtractorScript");
 
-		if (accessTokenExtratorScript != null) {
-			setAccessTokenExtratorScript(accessTokenExtratorScript);
+		if (accessTokenExtractorScript != null) {
+			setAccessTokenExtractorScript(accessTokenExtractorScript);
 		}
 
 		String requestTokenURL = (String)attributes.get("requestTokenURL");
@@ -566,26 +559,6 @@ public class OAuthConnectionWrapper implements OAuthConnection,
 	}
 
 	/**
-	* Returns the graph u r l of this o auth connection.
-	*
-	* @return the graph u r l of this o auth connection
-	*/
-	@Override
-	public java.lang.String getGraphURL() {
-		return _oAuthConnection.getGraphURL();
-	}
-
-	/**
-	* Sets the graph u r l of this o auth connection.
-	*
-	* @param graphURL the graph u r l of this o auth connection
-	*/
-	@Override
-	public void setGraphURL(java.lang.String graphURL) {
-		_oAuthConnection.setGraphURL(graphURL);
-	}
-
-	/**
 	* Returns the authorize u r l of this o auth connection.
 	*
 	* @return the authorize u r l of this o auth connection
@@ -646,44 +619,44 @@ public class OAuthConnectionWrapper implements OAuthConnection,
 	}
 
 	/**
-	* Returns the access token extrator type of this o auth connection.
+	* Returns the access token extractor type of this o auth connection.
 	*
-	* @return the access token extrator type of this o auth connection
+	* @return the access token extractor type of this o auth connection
 	*/
 	@Override
-	public int getAccessTokenExtratorType() {
-		return _oAuthConnection.getAccessTokenExtratorType();
+	public int getAccessTokenExtractorType() {
+		return _oAuthConnection.getAccessTokenExtractorType();
 	}
 
 	/**
-	* Sets the access token extrator type of this o auth connection.
+	* Sets the access token extractor type of this o auth connection.
 	*
-	* @param accessTokenExtratorType the access token extrator type of this o auth connection
+	* @param accessTokenExtractorType the access token extractor type of this o auth connection
 	*/
 	@Override
-	public void setAccessTokenExtratorType(int accessTokenExtratorType) {
-		_oAuthConnection.setAccessTokenExtratorType(accessTokenExtratorType);
+	public void setAccessTokenExtractorType(int accessTokenExtractorType) {
+		_oAuthConnection.setAccessTokenExtractorType(accessTokenExtractorType);
 	}
 
 	/**
-	* Returns the access token extrator script of this o auth connection.
+	* Returns the access token extractor script of this o auth connection.
 	*
-	* @return the access token extrator script of this o auth connection
+	* @return the access token extractor script of this o auth connection
 	*/
 	@Override
-	public java.lang.String getAccessTokenExtratorScript() {
-		return _oAuthConnection.getAccessTokenExtratorScript();
+	public java.lang.String getAccessTokenExtractorScript() {
+		return _oAuthConnection.getAccessTokenExtractorScript();
 	}
 
 	/**
-	* Sets the access token extrator script of this o auth connection.
+	* Sets the access token extractor script of this o auth connection.
 	*
-	* @param accessTokenExtratorScript the access token extrator script of this o auth connection
+	* @param accessTokenExtractorScript the access token extractor script of this o auth connection
 	*/
 	@Override
-	public void setAccessTokenExtratorScript(
-		java.lang.String accessTokenExtratorScript) {
-		_oAuthConnection.setAccessTokenExtratorScript(accessTokenExtratorScript);
+	public void setAccessTokenExtractorScript(
+		java.lang.String accessTokenExtractorScript) {
+		_oAuthConnection.setAccessTokenExtractorScript(accessTokenExtractorScript);
 	}
 
 	/**
@@ -910,7 +883,8 @@ public class OAuthConnectionWrapper implements OAuthConnection,
 	}
 
 	@Override
-	public int compareTo(OAuthConnection oAuthConnection) {
+	public int compareTo(
+		com.liferay.oauthlogin.model.OAuthConnection oAuthConnection) {
 		return _oAuthConnection.compareTo(oAuthConnection);
 	}
 
@@ -920,17 +894,17 @@ public class OAuthConnectionWrapper implements OAuthConnection,
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<OAuthConnection> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<com.liferay.oauthlogin.model.OAuthConnection> toCacheModel() {
 		return _oAuthConnection.toCacheModel();
 	}
 
 	@Override
-	public OAuthConnection toEscapedModel() {
+	public com.liferay.oauthlogin.model.OAuthConnection toEscapedModel() {
 		return new OAuthConnectionWrapper(_oAuthConnection.toEscapedModel());
 	}
 
 	@Override
-	public OAuthConnection toUnescapedModel() {
+	public com.liferay.oauthlogin.model.OAuthConnection toUnescapedModel() {
 		return new OAuthConnectionWrapper(_oAuthConnection.toUnescapedModel());
 	}
 

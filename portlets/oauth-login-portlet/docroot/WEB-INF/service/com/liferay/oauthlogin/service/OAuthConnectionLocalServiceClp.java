@@ -121,8 +121,8 @@ public class OAuthConnectionLocalServiceClp
 		_methodParameterTypes19 = new String[] {
 				"boolean", "java.lang.String", "java.lang.String", "int",
 				"java.lang.String", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String", "java.lang.String",
-				"int", "int", "java.lang.String", "java.lang.String", "int",
+				"java.lang.String", "java.lang.String", "int", "int",
+				"java.lang.String", "java.lang.String", "int",
 				"java.lang.String", "java.lang.String", "int",
 				"java.lang.String", "int", "java.lang.String", "java.io.File",
 				"com.liferay.portal.service.ServiceContext"
@@ -141,8 +141,8 @@ public class OAuthConnectionLocalServiceClp
 		_methodParameterTypes22 = new String[] {
 				"long", "boolean", "java.lang.String", "java.lang.String", "int",
 				"java.lang.String", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String", "java.lang.String",
-				"int", "int", "java.lang.String", "java.lang.String", "int",
+				"java.lang.String", "java.lang.String", "int", "int",
+				"java.lang.String", "java.lang.String", "int",
 				"java.lang.String", "java.lang.String", "int",
 				"java.lang.String", "int", "java.lang.String", "java.io.File",
 				"com.liferay.portal.service.ServiceContext"
@@ -703,10 +703,10 @@ public class OAuthConnectionLocalServiceClp
 	public com.liferay.oauthlogin.model.OAuthConnection addOAuthConnection(
 		boolean enabled, java.lang.String name, java.lang.String description,
 		int oAuthVersion, java.lang.String key, java.lang.String secret,
-		java.lang.String scope, java.lang.String graphURL,
-		java.lang.String authorizeURL, java.lang.String accessTokenURL,
-		int accessTokenVerb, int accessTokenExtratorType,
-		java.lang.String accessTokenExtratorScript,
+		java.lang.String scope, java.lang.String authorizeURL,
+		java.lang.String accessTokenURL, int accessTokenVerb,
+		int accessTokenExtractorType,
+		java.lang.String accessTokenExtractorScript,
 		java.lang.String requestTokenURL, int requestTokenVerb,
 		java.lang.String redirectURL, java.lang.String socialAccountIdURL,
 		int socialAccountIdURLVerb, java.lang.String socialAccountIdField,
@@ -735,17 +735,15 @@ public class OAuthConnectionLocalServiceClp
 						
 					ClpSerializer.translateInput(scope),
 						
-					ClpSerializer.translateInput(graphURL),
-						
 					ClpSerializer.translateInput(authorizeURL),
 						
 					ClpSerializer.translateInput(accessTokenURL),
 						
 					accessTokenVerb,
 						
-					accessTokenExtratorType,
+					accessTokenExtractorType,
 						
-					ClpSerializer.translateInput(accessTokenExtratorScript),
+					ClpSerializer.translateInput(accessTokenExtractorScript),
 						
 					ClpSerializer.translateInput(requestTokenURL),
 						
@@ -854,10 +852,9 @@ public class OAuthConnectionLocalServiceClp
 		long oAuthConnectionId, boolean enabled, java.lang.String name,
 		java.lang.String description, int oAuthVersion, java.lang.String key,
 		java.lang.String secret, java.lang.String scope,
-		java.lang.String graphURL, java.lang.String authorizeURL,
-		java.lang.String accessTokenURL, int accessTokenVerb,
-		int accessTokenExtratorType,
-		java.lang.String accessTokenExtratorScript,
+		java.lang.String authorizeURL, java.lang.String accessTokenURL,
+		int accessTokenVerb, int accessTokenExtractorType,
+		java.lang.String accessTokenExtractorScript,
 		java.lang.String requestTokenURL, int requestTokenVerb,
 		java.lang.String redirectURL, java.lang.String socialAccountIdURL,
 		int socialAccountIdURLVerb, java.lang.String socialAccountIdField,
@@ -887,17 +884,15 @@ public class OAuthConnectionLocalServiceClp
 						
 					ClpSerializer.translateInput(scope),
 						
-					ClpSerializer.translateInput(graphURL),
-						
 					ClpSerializer.translateInput(authorizeURL),
 						
 					ClpSerializer.translateInput(accessTokenURL),
 						
 					accessTokenVerb,
 						
-					accessTokenExtratorType,
+					accessTokenExtractorType,
 						
-					ClpSerializer.translateInput(accessTokenExtratorScript),
+					ClpSerializer.translateInput(accessTokenExtractorScript),
 						
 					ClpSerializer.translateInput(requestTokenURL),
 						

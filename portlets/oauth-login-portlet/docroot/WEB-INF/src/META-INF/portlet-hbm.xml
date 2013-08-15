@@ -20,12 +20,11 @@
 		<property name="key" type="com.liferay.portal.dao.orm.hibernate.StringType" column="key_" />
 		<property name="secret" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="scope" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="graphURL" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="authorizeURL" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="accessTokenURL" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="accessTokenVerb" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
-		<property name="accessTokenExtratorType" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
-		<property name="accessTokenExtratorScript" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="accessTokenExtractorType" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="accessTokenExtractorScript" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="requestTokenURL" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="requestTokenVerb" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="redirectURL" type="com.liferay.portal.dao.orm.hibernate.StringType" />

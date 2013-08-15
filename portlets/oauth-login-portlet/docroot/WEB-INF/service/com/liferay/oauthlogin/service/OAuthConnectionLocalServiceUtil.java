@@ -278,10 +278,10 @@ public class OAuthConnectionLocalServiceUtil {
 	public static com.liferay.oauthlogin.model.OAuthConnection addOAuthConnection(
 		boolean enabled, java.lang.String name, java.lang.String description,
 		int oAuthVersion, java.lang.String key, java.lang.String secret,
-		java.lang.String scope, java.lang.String graphURL,
-		java.lang.String authorizeURL, java.lang.String accessTokenURL,
-		int accessTokenVerb, int accessTokenExtratorType,
-		java.lang.String accessTokenExtratorScript,
+		java.lang.String scope, java.lang.String authorizeURL,
+		java.lang.String accessTokenURL, int accessTokenVerb,
+		int accessTokenExtractorType,
+		java.lang.String accessTokenExtractorScript,
 		java.lang.String requestTokenURL, int requestTokenVerb,
 		java.lang.String redirectURL, java.lang.String socialAccountIdURL,
 		int socialAccountIdURLVerb, java.lang.String socialAccountIdField,
@@ -292,9 +292,9 @@ public class OAuthConnectionLocalServiceUtil {
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .addOAuthConnection(enabled, name, description,
-			oAuthVersion, key, secret, scope, graphURL, authorizeURL,
-			accessTokenURL, accessTokenVerb, accessTokenExtratorType,
-			accessTokenExtratorScript, requestTokenURL, requestTokenVerb,
+			oAuthVersion, key, secret, scope, authorizeURL, accessTokenURL,
+			accessTokenVerb, accessTokenExtractorType,
+			accessTokenExtractorScript, requestTokenURL, requestTokenVerb,
 			redirectURL, socialAccountIdURL, socialAccountIdURLVerb,
 			socialAccountIdField, socialAccountIdType, socialAccountIdScript,
 			icon, serviceContext);
@@ -316,10 +316,9 @@ public class OAuthConnectionLocalServiceUtil {
 		long oAuthConnectionId, boolean enabled, java.lang.String name,
 		java.lang.String description, int oAuthVersion, java.lang.String key,
 		java.lang.String secret, java.lang.String scope,
-		java.lang.String graphURL, java.lang.String authorizeURL,
-		java.lang.String accessTokenURL, int accessTokenVerb,
-		int accessTokenExtratorType,
-		java.lang.String accessTokenExtratorScript,
+		java.lang.String authorizeURL, java.lang.String accessTokenURL,
+		int accessTokenVerb, int accessTokenExtractorType,
+		java.lang.String accessTokenExtractorScript,
 		java.lang.String requestTokenURL, int requestTokenVerb,
 		java.lang.String redirectURL, java.lang.String socialAccountIdURL,
 		int socialAccountIdURLVerb, java.lang.String socialAccountIdField,
@@ -329,12 +328,12 @@ public class OAuthConnectionLocalServiceUtil {
 		throws java.lang.Exception {
 		return getService()
 				   .updateOAuthConnection(oAuthConnectionId, enabled, name,
-			description, oAuthVersion, key, secret, scope, graphURL,
-			authorizeURL, accessTokenURL, accessTokenVerb,
-			accessTokenExtratorType, accessTokenExtratorScript,
-			requestTokenURL, requestTokenVerb, redirectURL, socialAccountIdURL,
-			socialAccountIdURLVerb, socialAccountIdField, socialAccountIdType,
-			socialAccountIdScript, icon, serviceContext);
+			description, oAuthVersion, key, secret, scope, authorizeURL,
+			accessTokenURL, accessTokenVerb, accessTokenExtractorType,
+			accessTokenExtractorScript, requestTokenURL, requestTokenVerb,
+			redirectURL, socialAccountIdURL, socialAccountIdURLVerb,
+			socialAccountIdField, socialAccountIdType, socialAccountIdScript,
+			icon, serviceContext);
 	}
 
 	public static void clearService() {

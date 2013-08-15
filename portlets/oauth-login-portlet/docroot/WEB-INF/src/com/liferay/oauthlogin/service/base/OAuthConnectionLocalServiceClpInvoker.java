@@ -119,8 +119,8 @@ public class OAuthConnectionLocalServiceClpInvoker {
 		_methodParameterTypes44 = new String[] {
 				"boolean", "java.lang.String", "java.lang.String", "int",
 				"java.lang.String", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String", "java.lang.String",
-				"int", "int", "java.lang.String", "java.lang.String", "int",
+				"java.lang.String", "java.lang.String", "int", "int",
+				"java.lang.String", "java.lang.String", "int",
 				"java.lang.String", "java.lang.String", "int",
 				"java.lang.String", "int", "java.lang.String", "java.io.File",
 				"com.liferay.portal.service.ServiceContext"
@@ -143,8 +143,8 @@ public class OAuthConnectionLocalServiceClpInvoker {
 		_methodParameterTypes48 = new String[] {
 				"long", "boolean", "java.lang.String", "java.lang.String", "int",
 				"java.lang.String", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String", "java.lang.String",
-				"int", "int", "java.lang.String", "java.lang.String", "int",
+				"java.lang.String", "java.lang.String", "int", "int",
+				"java.lang.String", "java.lang.String", "int",
 				"java.lang.String", "java.lang.String", "int",
 				"java.lang.String", "int", "java.lang.String", "java.io.File",
 				"com.liferay.portal.service.ServiceContext"
@@ -259,19 +259,19 @@ public class OAuthConnectionLocalServiceClpInvoker {
 				((Integer)arguments[3]).intValue(),
 				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
 				(java.lang.String)arguments[6], (java.lang.String)arguments[7],
-				(java.lang.String)arguments[8], (java.lang.String)arguments[9],
+				(java.lang.String)arguments[8],
+				((Integer)arguments[9]).intValue(),
 				((Integer)arguments[10]).intValue(),
-				((Integer)arguments[11]).intValue(),
+				(java.lang.String)arguments[11],
 				(java.lang.String)arguments[12],
-				(java.lang.String)arguments[13],
-				((Integer)arguments[14]).intValue(),
+				((Integer)arguments[13]).intValue(),
+				(java.lang.String)arguments[14],
 				(java.lang.String)arguments[15],
-				(java.lang.String)arguments[16],
-				((Integer)arguments[17]).intValue(),
-				(java.lang.String)arguments[18],
-				((Integer)arguments[19]).intValue(),
-				(java.lang.String)arguments[20], (java.io.File)arguments[21],
-				(com.liferay.portal.service.ServiceContext)arguments[22]);
+				((Integer)arguments[16]).intValue(),
+				(java.lang.String)arguments[17],
+				((Integer)arguments[18]).intValue(),
+				(java.lang.String)arguments[19], (java.io.File)arguments[20],
+				(com.liferay.portal.service.ServiceContext)arguments[21]);
 		}
 
 		if (_methodName45.equals(name) &&
@@ -300,19 +300,18 @@ public class OAuthConnectionLocalServiceClpInvoker {
 				(java.lang.String)arguments[5], (java.lang.String)arguments[6],
 				(java.lang.String)arguments[7], (java.lang.String)arguments[8],
 				(java.lang.String)arguments[9],
-				(java.lang.String)arguments[10],
+				((Integer)arguments[10]).intValue(),
 				((Integer)arguments[11]).intValue(),
-				((Integer)arguments[12]).intValue(),
+				(java.lang.String)arguments[12],
 				(java.lang.String)arguments[13],
-				(java.lang.String)arguments[14],
-				((Integer)arguments[15]).intValue(),
+				((Integer)arguments[14]).intValue(),
+				(java.lang.String)arguments[15],
 				(java.lang.String)arguments[16],
-				(java.lang.String)arguments[17],
-				((Integer)arguments[18]).intValue(),
-				(java.lang.String)arguments[19],
-				((Integer)arguments[20]).intValue(),
-				(java.lang.String)arguments[21], (java.io.File)arguments[22],
-				(com.liferay.portal.service.ServiceContext)arguments[23]);
+				((Integer)arguments[17]).intValue(),
+				(java.lang.String)arguments[18],
+				((Integer)arguments[19]).intValue(),
+				(java.lang.String)arguments[20], (java.io.File)arguments[21],
+				(com.liferay.portal.service.ServiceContext)arguments[22]);
 		}
 
 		throw new UnsupportedOperationException();

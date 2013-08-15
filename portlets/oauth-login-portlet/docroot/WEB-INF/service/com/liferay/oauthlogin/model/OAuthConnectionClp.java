@@ -89,13 +89,12 @@ public class OAuthConnectionClp extends BaseModelImpl<OAuthConnection>
 		attributes.put("key", getKey());
 		attributes.put("secret", getSecret());
 		attributes.put("scope", getScope());
-		attributes.put("graphURL", getGraphURL());
 		attributes.put("authorizeURL", getAuthorizeURL());
 		attributes.put("accessTokenURL", getAccessTokenURL());
 		attributes.put("accessTokenVerb", getAccessTokenVerb());
-		attributes.put("accessTokenExtratorType", getAccessTokenExtratorType());
-		attributes.put("accessTokenExtratorScript",
-			getAccessTokenExtratorScript());
+		attributes.put("accessTokenExtractorType", getAccessTokenExtractorType());
+		attributes.put("accessTokenExtractorScript",
+			getAccessTokenExtractorScript());
 		attributes.put("requestTokenURL", getRequestTokenURL());
 		attributes.put("requestTokenVerb", getRequestTokenVerb());
 		attributes.put("redirectURL", getRedirectURL());
@@ -188,12 +187,6 @@ public class OAuthConnectionClp extends BaseModelImpl<OAuthConnection>
 			setScope(scope);
 		}
 
-		String graphURL = (String)attributes.get("graphURL");
-
-		if (graphURL != null) {
-			setGraphURL(graphURL);
-		}
-
 		String authorizeURL = (String)attributes.get("authorizeURL");
 
 		if (authorizeURL != null) {
@@ -212,18 +205,18 @@ public class OAuthConnectionClp extends BaseModelImpl<OAuthConnection>
 			setAccessTokenVerb(accessTokenVerb);
 		}
 
-		Integer accessTokenExtratorType = (Integer)attributes.get(
-				"accessTokenExtratorType");
+		Integer accessTokenExtractorType = (Integer)attributes.get(
+				"accessTokenExtractorType");
 
-		if (accessTokenExtratorType != null) {
-			setAccessTokenExtratorType(accessTokenExtratorType);
+		if (accessTokenExtractorType != null) {
+			setAccessTokenExtractorType(accessTokenExtractorType);
 		}
 
-		String accessTokenExtratorScript = (String)attributes.get(
-				"accessTokenExtratorScript");
+		String accessTokenExtractorScript = (String)attributes.get(
+				"accessTokenExtractorScript");
 
-		if (accessTokenExtratorScript != null) {
-			setAccessTokenExtratorScript(accessTokenExtratorScript);
+		if (accessTokenExtractorScript != null) {
+			setAccessTokenExtractorScript(accessTokenExtractorScript);
 		}
 
 		String requestTokenURL = (String)attributes.get("requestTokenURL");
@@ -595,29 +588,6 @@ public class OAuthConnectionClp extends BaseModelImpl<OAuthConnection>
 	}
 
 	@Override
-	public String getGraphURL() {
-		return _graphURL;
-	}
-
-	@Override
-	public void setGraphURL(String graphURL) {
-		_graphURL = graphURL;
-
-		if (_oAuthConnectionRemoteModel != null) {
-			try {
-				Class<?> clazz = _oAuthConnectionRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setGraphURL", String.class);
-
-				method.invoke(_oAuthConnectionRemoteModel, graphURL);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
 	public String getAuthorizeURL() {
 		return _authorizeURL;
 	}
@@ -688,23 +658,23 @@ public class OAuthConnectionClp extends BaseModelImpl<OAuthConnection>
 	}
 
 	@Override
-	public int getAccessTokenExtratorType() {
-		return _accessTokenExtratorType;
+	public int getAccessTokenExtractorType() {
+		return _accessTokenExtractorType;
 	}
 
 	@Override
-	public void setAccessTokenExtratorType(int accessTokenExtratorType) {
-		_accessTokenExtratorType = accessTokenExtratorType;
+	public void setAccessTokenExtractorType(int accessTokenExtractorType) {
+		_accessTokenExtractorType = accessTokenExtractorType;
 
 		if (_oAuthConnectionRemoteModel != null) {
 			try {
 				Class<?> clazz = _oAuthConnectionRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setAccessTokenExtratorType",
+				Method method = clazz.getMethod("setAccessTokenExtractorType",
 						int.class);
 
 				method.invoke(_oAuthConnectionRemoteModel,
-					accessTokenExtratorType);
+					accessTokenExtractorType);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -713,23 +683,23 @@ public class OAuthConnectionClp extends BaseModelImpl<OAuthConnection>
 	}
 
 	@Override
-	public String getAccessTokenExtratorScript() {
-		return _accessTokenExtratorScript;
+	public String getAccessTokenExtractorScript() {
+		return _accessTokenExtractorScript;
 	}
 
 	@Override
-	public void setAccessTokenExtratorScript(String accessTokenExtratorScript) {
-		_accessTokenExtratorScript = accessTokenExtratorScript;
+	public void setAccessTokenExtractorScript(String accessTokenExtractorScript) {
+		_accessTokenExtractorScript = accessTokenExtractorScript;
 
 		if (_oAuthConnectionRemoteModel != null) {
 			try {
 				Class<?> clazz = _oAuthConnectionRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setAccessTokenExtratorScript",
+				Method method = clazz.getMethod("setAccessTokenExtractorScript",
 						String.class);
 
 				method.invoke(_oAuthConnectionRemoteModel,
-					accessTokenExtratorScript);
+					accessTokenExtractorScript);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -1012,12 +982,11 @@ public class OAuthConnectionClp extends BaseModelImpl<OAuthConnection>
 		clone.setKey(getKey());
 		clone.setSecret(getSecret());
 		clone.setScope(getScope());
-		clone.setGraphURL(getGraphURL());
 		clone.setAuthorizeURL(getAuthorizeURL());
 		clone.setAccessTokenURL(getAccessTokenURL());
 		clone.setAccessTokenVerb(getAccessTokenVerb());
-		clone.setAccessTokenExtratorType(getAccessTokenExtratorType());
-		clone.setAccessTokenExtratorScript(getAccessTokenExtratorScript());
+		clone.setAccessTokenExtractorType(getAccessTokenExtractorType());
+		clone.setAccessTokenExtractorScript(getAccessTokenExtractorScript());
 		clone.setRequestTokenURL(getRequestTokenURL());
 		clone.setRequestTokenVerb(getRequestTokenVerb());
 		clone.setRedirectURL(getRedirectURL());
@@ -1075,7 +1044,7 @@ public class OAuthConnectionClp extends BaseModelImpl<OAuthConnection>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(55);
+		StringBundler sb = new StringBundler(53);
 
 		sb.append("{oAuthConnectionId=");
 		sb.append(getOAuthConnectionId());
@@ -1103,18 +1072,16 @@ public class OAuthConnectionClp extends BaseModelImpl<OAuthConnection>
 		sb.append(getSecret());
 		sb.append(", scope=");
 		sb.append(getScope());
-		sb.append(", graphURL=");
-		sb.append(getGraphURL());
 		sb.append(", authorizeURL=");
 		sb.append(getAuthorizeURL());
 		sb.append(", accessTokenURL=");
 		sb.append(getAccessTokenURL());
 		sb.append(", accessTokenVerb=");
 		sb.append(getAccessTokenVerb());
-		sb.append(", accessTokenExtratorType=");
-		sb.append(getAccessTokenExtratorType());
-		sb.append(", accessTokenExtratorScript=");
-		sb.append(getAccessTokenExtratorScript());
+		sb.append(", accessTokenExtractorType=");
+		sb.append(getAccessTokenExtractorType());
+		sb.append(", accessTokenExtractorScript=");
+		sb.append(getAccessTokenExtractorScript());
 		sb.append(", requestTokenURL=");
 		sb.append(getRequestTokenURL());
 		sb.append(", requestTokenVerb=");
@@ -1138,7 +1105,7 @@ public class OAuthConnectionClp extends BaseModelImpl<OAuthConnection>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(85);
+		StringBundler sb = new StringBundler(82);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.oauthlogin.model.OAuthConnection");
@@ -1197,10 +1164,6 @@ public class OAuthConnectionClp extends BaseModelImpl<OAuthConnection>
 		sb.append(getScope());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>graphURL</column-name><column-value><![CDATA[");
-		sb.append(getGraphURL());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>authorizeURL</column-name><column-value><![CDATA[");
 		sb.append(getAuthorizeURL());
 		sb.append("]]></column-value></column>");
@@ -1213,12 +1176,12 @@ public class OAuthConnectionClp extends BaseModelImpl<OAuthConnection>
 		sb.append(getAccessTokenVerb());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>accessTokenExtratorType</column-name><column-value><![CDATA[");
-		sb.append(getAccessTokenExtratorType());
+			"<column><column-name>accessTokenExtractorType</column-name><column-value><![CDATA[");
+		sb.append(getAccessTokenExtractorType());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>accessTokenExtratorScript</column-name><column-value><![CDATA[");
-		sb.append(getAccessTokenExtratorScript());
+			"<column><column-name>accessTokenExtractorScript</column-name><column-value><![CDATA[");
+		sb.append(getAccessTokenExtractorScript());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>requestTokenURL</column-name><column-value><![CDATA[");
@@ -1272,12 +1235,11 @@ public class OAuthConnectionClp extends BaseModelImpl<OAuthConnection>
 	private String _key;
 	private String _secret;
 	private String _scope;
-	private String _graphURL;
 	private String _authorizeURL;
 	private String _accessTokenURL;
 	private int _accessTokenVerb;
-	private int _accessTokenExtratorType;
-	private String _accessTokenExtratorScript;
+	private int _accessTokenExtractorType;
+	private String _accessTokenExtractorScript;
 	private String _requestTokenURL;
 	private int _requestTokenVerb;
 	private String _redirectURL;

@@ -34,13 +34,12 @@ public class OAuthConnectionLocalServiceImpl
 
 	public OAuthConnection addOAuthConnection(boolean enabled, String name,
 			String description, int oAuthVersion, String key, String secret,
-			String scope, String graphURL, String authorizeURL,
-			String accessTokenURL, int accessTokenVerb,
-			int accessTokenExtractorType, String accessTokenExtractorScript,
-			String requestTokenURL, int requestTokenVerb, String redirectURL,
-			String socialAccountIdURL, int socialAccountIdURLVerb,
-			String socialAccountIdField, int socialAccountIdType,
-			String socialAccountIdScript, File icon,
+			String scope, String authorizeURL, String accessTokenURL,
+			int accessTokenVerb, int accessTokenExtractorType,
+			String accessTokenExtractorScript, String requestTokenURL,
+			int requestTokenVerb, String redirectURL, String socialAccountIdURL,
+			int socialAccountIdURLVerb, String socialAccountIdField,
+			int socialAccountIdType, String socialAccountIdScript, File icon,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
@@ -121,13 +120,12 @@ public class OAuthConnectionLocalServiceImpl
 	public OAuthConnection updateOAuthConnection(
 			long oAuthConnectionId, boolean enabled, String name,
 			String description, int oAuthVersion, String key, String secret,
-			String scope, String graphURL, String authorizeURL,
-			String accessTokenURL, int accessTokenVerb,
-			int accessTokenExtractorType, String accessTokenExtractorScript,
-			String requestTokenURL, int requestTokenVerb, String redirectURL,
-			String socialAccountIdURL, int socialAccountIdURLVerb,
-			String socialAccountIdField, int socialAccountIdType,
-			String socialAccountIdScript, File icon,
+			String scope, String authorizeURL, String accessTokenURL,
+			int accessTokenVerb, int accessTokenExtractorType,
+			String accessTokenExtractorScript, String requestTokenURL,
+			int requestTokenVerb, String redirectURL, String socialAccountIdURL,
+			int socialAccountIdURLVerb, String socialAccountIdField,
+			int socialAccountIdType, String socialAccountIdScript, File icon,
 			ServiceContext serviceContext)
 		throws Exception {
 
@@ -162,7 +160,6 @@ public class OAuthConnectionLocalServiceImpl
 		oAuthConnectionPersistence.updateImpl(oAuthConnection);
 
 		return oAuthConnection;
-
 	}
 
 	protected void saveIcon(long iconId, byte[] iconBytes)

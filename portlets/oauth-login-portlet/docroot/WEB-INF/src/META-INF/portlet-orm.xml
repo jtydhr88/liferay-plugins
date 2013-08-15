@@ -28,12 +28,11 @@
 			</basic>
 			<basic name="secret" />
 			<basic name="scope" />
-			<basic name="graphURL" />
 			<basic name="authorizeURL" />
 			<basic name="accessTokenURL" />
 			<basic name="accessTokenVerb" />
-			<basic name="accessTokenExtratorType" />
-			<basic name="accessTokenExtratorScript" />
+			<basic name="accessTokenExtractorType" />
+			<basic name="accessTokenExtractorScript" />
 			<basic name="requestTokenURL" />
 			<basic name="requestTokenVerb" />
 			<basic name="redirectURL" />

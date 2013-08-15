@@ -848,12 +848,11 @@ public class OAuthConnectionPersistenceImpl extends BasePersistenceImpl<OAuthCon
 		oAuthConnectionImpl.setKey(oAuthConnection.getKey());
 		oAuthConnectionImpl.setSecret(oAuthConnection.getSecret());
 		oAuthConnectionImpl.setScope(oAuthConnection.getScope());
-		oAuthConnectionImpl.setGraphURL(oAuthConnection.getGraphURL());
 		oAuthConnectionImpl.setAuthorizeURL(oAuthConnection.getAuthorizeURL());
 		oAuthConnectionImpl.setAccessTokenURL(oAuthConnection.getAccessTokenURL());
 		oAuthConnectionImpl.setAccessTokenVerb(oAuthConnection.getAccessTokenVerb());
-		oAuthConnectionImpl.setAccessTokenExtratorType(oAuthConnection.getAccessTokenExtratorType());
-		oAuthConnectionImpl.setAccessTokenExtratorScript(oAuthConnection.getAccessTokenExtratorScript());
+		oAuthConnectionImpl.setAccessTokenExtractorType(oAuthConnection.getAccessTokenExtractorType());
+		oAuthConnectionImpl.setAccessTokenExtractorScript(oAuthConnection.getAccessTokenExtractorScript());
 		oAuthConnectionImpl.setRequestTokenURL(oAuthConnection.getRequestTokenURL());
 		oAuthConnectionImpl.setRequestTokenVerb(oAuthConnection.getRequestTokenVerb());
 		oAuthConnectionImpl.setRedirectURL(oAuthConnection.getRedirectURL());

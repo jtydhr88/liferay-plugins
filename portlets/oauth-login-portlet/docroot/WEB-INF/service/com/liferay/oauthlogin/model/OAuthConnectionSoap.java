@@ -43,12 +43,11 @@ public class OAuthConnectionSoap implements Serializable {
 		soapModel.setKey(model.getKey());
 		soapModel.setSecret(model.getSecret());
 		soapModel.setScope(model.getScope());
-		soapModel.setGraphURL(model.getGraphURL());
 		soapModel.setAuthorizeURL(model.getAuthorizeURL());
 		soapModel.setAccessTokenURL(model.getAccessTokenURL());
 		soapModel.setAccessTokenVerb(model.getAccessTokenVerb());
-		soapModel.setAccessTokenExtratorType(model.getAccessTokenExtratorType());
-		soapModel.setAccessTokenExtratorScript(model.getAccessTokenExtratorScript());
+		soapModel.setAccessTokenExtractorType(model.getAccessTokenExtractorType());
+		soapModel.setAccessTokenExtractorScript(model.getAccessTokenExtractorScript());
 		soapModel.setRequestTokenURL(model.getRequestTokenURL());
 		soapModel.setRequestTokenVerb(model.getRequestTokenVerb());
 		soapModel.setRedirectURL(model.getRedirectURL());
@@ -219,14 +218,6 @@ public class OAuthConnectionSoap implements Serializable {
 		_scope = scope;
 	}
 
-	public String getGraphURL() {
-		return _graphURL;
-	}
-
-	public void setGraphURL(String graphURL) {
-		_graphURL = graphURL;
-	}
-
 	public String getAuthorizeURL() {
 		return _authorizeURL;
 	}
@@ -251,20 +242,20 @@ public class OAuthConnectionSoap implements Serializable {
 		_accessTokenVerb = accessTokenVerb;
 	}
 
-	public int getAccessTokenExtratorType() {
-		return _accessTokenExtratorType;
+	public int getAccessTokenExtractorType() {
+		return _accessTokenExtractorType;
 	}
 
-	public void setAccessTokenExtratorType(int accessTokenExtratorType) {
-		_accessTokenExtratorType = accessTokenExtratorType;
+	public void setAccessTokenExtractorType(int accessTokenExtractorType) {
+		_accessTokenExtractorType = accessTokenExtractorType;
 	}
 
-	public String getAccessTokenExtratorScript() {
-		return _accessTokenExtratorScript;
+	public String getAccessTokenExtractorScript() {
+		return _accessTokenExtractorScript;
 	}
 
-	public void setAccessTokenExtratorScript(String accessTokenExtratorScript) {
-		_accessTokenExtratorScript = accessTokenExtratorScript;
+	public void setAccessTokenExtractorScript(String accessTokenExtractorScript) {
+		_accessTokenExtractorScript = accessTokenExtractorScript;
 	}
 
 	public String getRequestTokenURL() {
@@ -344,12 +335,11 @@ public class OAuthConnectionSoap implements Serializable {
 	private String _key;
 	private String _secret;
 	private String _scope;
-	private String _graphURL;
 	private String _authorizeURL;
 	private String _accessTokenURL;
 	private int _accessTokenVerb;
-	private int _accessTokenExtratorType;
-	private String _accessTokenExtratorScript;
+	private int _accessTokenExtractorType;
+	private String _accessTokenExtractorScript;
 	private String _requestTokenURL;
 	private int _requestTokenVerb;
 	private String _redirectURL;

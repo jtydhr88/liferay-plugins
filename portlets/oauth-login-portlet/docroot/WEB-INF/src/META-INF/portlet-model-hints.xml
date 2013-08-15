@@ -15,12 +15,11 @@
 		<field name="key" type="String" />
 		<field name="secret" type="String" />
 		<field name="scope" type="String" />
-		<field name="graphURL" type="String" />
 		<field name="authorizeURL" type="String" />
 		<field name="accessTokenURL" type="String" />
 		<field name="accessTokenVerb" type="int" />
-		<field name="accessTokenExtratorType" type="int" />
-		<field name="accessTokenExtratorScript" type="String" />
+		<field name="accessTokenExtractorType" type="int" />
+		<field name="accessTokenExtractorScript" type="String" />
 		<field name="requestTokenURL" type="String" />
 		<field name="requestTokenVerb" type="int" />
 		<field name="redirectURL" type="String" />

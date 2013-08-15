@@ -270,21 +270,6 @@ public interface OAuthConnectionModel extends BaseModel<OAuthConnection> {
 	public void setScope(String scope);
 
 	/**
-	 * Returns the graph u r l of this o auth connection.
-	 *
-	 * @return the graph u r l of this o auth connection
-	 */
-	@AutoEscape
-	public String getGraphURL();
-
-	/**
-	 * Sets the graph u r l of this o auth connection.
-	 *
-	 * @param graphURL the graph u r l of this o auth connection
-	 */
-	public void setGraphURL(String graphURL);
-
-	/**
 	 * Returns the authorize u r l of this o auth connection.
 	 *
 	 * @return the authorize u r l of this o auth connection
@@ -329,33 +314,33 @@ public interface OAuthConnectionModel extends BaseModel<OAuthConnection> {
 	public void setAccessTokenVerb(int accessTokenVerb);
 
 	/**
-	 * Returns the access token extrator type of this o auth connection.
+	 * Returns the access token extractor type of this o auth connection.
 	 *
-	 * @return the access token extrator type of this o auth connection
+	 * @return the access token extractor type of this o auth connection
 	 */
-	public int getAccessTokenExtratorType();
+	public int getAccessTokenExtractorType();
 
 	/**
-	 * Sets the access token extrator type of this o auth connection.
+	 * Sets the access token extractor type of this o auth connection.
 	 *
-	 * @param accessTokenExtratorType the access token extrator type of this o auth connection
+	 * @param accessTokenExtractorType the access token extractor type of this o auth connection
 	 */
-	public void setAccessTokenExtratorType(int accessTokenExtratorType);
+	public void setAccessTokenExtractorType(int accessTokenExtractorType);
 
 	/**
-	 * Returns the access token extrator script of this o auth connection.
+	 * Returns the access token extractor script of this o auth connection.
 	 *
-	 * @return the access token extrator script of this o auth connection
+	 * @return the access token extractor script of this o auth connection
 	 */
 	@AutoEscape
-	public String getAccessTokenExtratorScript();
+	public String getAccessTokenExtractorScript();
 
 	/**
-	 * Sets the access token extrator script of this o auth connection.
+	 * Sets the access token extractor script of this o auth connection.
 	 *
-	 * @param accessTokenExtratorScript the access token extrator script of this o auth connection
+	 * @param accessTokenExtractorScript the access token extractor script of this o auth connection
 	 */
-	public void setAccessTokenExtratorScript(String accessTokenExtratorScript);
+	public void setAccessTokenExtractorScript(String accessTokenExtractorScript);
 
 	/**
 	 * Returns the request token u r l of this o auth connection.
