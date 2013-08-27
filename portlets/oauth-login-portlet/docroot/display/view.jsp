@@ -16,4 +16,72 @@
 
 <%@ include file="/display/init.jsp" %>
 
-This is the <b>Display Portlet</b> portlet in View mode.
+<%
+long userId = themeDisplay.getUserId();
+
+List<OAuthConnection> oAuthConnections = OAuthConnectionLocalServiceUtil.getOAuthConnectionsEnabled(true);
+
+for (OAuthConnection oAuthConnection : oAuthConnections) {
+	String expandoColumnName = String.valueOf(oAuthConnection.getOAuthConnectionId()) + "_social_account_id";
+
+	String socailAccountId = ExpandoValueLocalServiceUtil.getData(company.getCompanyId(), User.class.getName(), ExpandoTableConstants.DEFAULT_TABLE_NAME, expandoColumnName, userId, StringPool.BLANK);
+%>
+
+	<c:choose>
+		<c:when test="<%= Validator.isNull(socailAccountId) %>">
+
+			<%
+			String authorizeURLLinkMessage = "sign-in-by-your-x-account";
+
+			if (themeDisplay.isSignedIn()) {
+				authorizeURLLinkMessage = "bind-your-x-account";
+			}
+			%>
+
+			<a href="javascript:;" onClick="getAuthorizeURL(<%= oAuthConnection.getOAuthConnectionId() %>);"><%= LanguageUtil.format(pageContext, authorizeURLLinkMessage, oAuthConnection.getName(), false) %></a>
+
+		</c:when>
+		<c:otherwise>
+			<portlet:actionURL name="unbindSocialAccount" var="unbindSocialAccountURL">
+				<portlet:param name="oAuthConnectionId" value="<%= String.valueOf(oAuthConnection.getOAuthConnectionId()) %>" />
+			</portlet:actionURL>
+
+			<%= LanguageUtil.format(pageContext, "you-have-bound-your-x-account", oAuthConnection.getName(), false) %> <aui:a href="<%= unbindSocialAccountURL.toString() %>" label="unbind-your-account" />
+
+		</c:otherwise>
+	</c:choose>
+
+	<br />
+
+<%
+}
+%>
+
+<portlet:actionURL name="getAuthorizeURL" var="getAuthorizeURL" />
+
+<aui:script use="aui-io-request">
+	Liferay.provide(
+		window,
+		"getAuthorizeURL",
+		function(oAuthConnectionId) {
+			var A = AUI();
+
+			A.io.request(
+				"<%= getAuthorizeURL %>",
+				{
+					dataType: 'json',
+					data: {
+						<portlet:namespace />oAuthConnectionId: oAuthConnectionId
+					},
+					after: {
+						success: function(event, id, obj) {
+							var jsonObject = this.get('responseData');
+
+							window.location.href = jsonObject.authorizeURL;
+						}
+					}
+				}
+			);
+		}
+	);
+</aui:script>
