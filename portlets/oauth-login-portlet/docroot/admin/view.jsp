@@ -54,7 +54,7 @@
 		<liferay-ui:search-container-column-text
 			href="<%= rowURL %>"
 			name="name"
-			value="<%= oAuthConnection.getName() %>"
+			value="<%= HtmlUtil.escape(oAuthConnection.getName()) %>"
 		/>
 
 		<liferay-ui:search-container-column-text
