@@ -31,4 +31,5 @@ public class OAuthConnectionImpl extends OAuthConnectionBaseImpl {
 	 */
 	public OAuthConnectionImpl() {
 	}
+
 }
