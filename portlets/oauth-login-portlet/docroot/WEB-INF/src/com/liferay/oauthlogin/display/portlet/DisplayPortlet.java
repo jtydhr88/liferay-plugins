@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.oauth.OAuthFactoryUtil;
 import com.liferay.portal.kernel.oauth.OAuthManager;
 import com.liferay.portal.kernel.oauth.Token;
 import com.liferay.portal.kernel.oauth.Verb;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -34,8 +35,13 @@ import com.liferay.portlet.expando.model.ExpandoTableConstants;
 import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
+import java.io.IOException;
+
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -131,6 +137,26 @@ public class DisplayPortlet extends MVCPortlet {
 			"authorizeURL", oAuthManager.getAuthorizeURL(requestToken));
 
 		writeJSON(actionRequest, actionResponse, jsonObject);
+	}
+
+	public void render(
+			RenderRequest renderRequest, RenderResponse renderResponse)
+		throws IOException, PortletException {
+
+		HttpServletRequest request = PortalUtil.getHttpServletRequest(
+			renderRequest);
+
+		HttpSession session = request.getSession();
+
+		String errorCode = (String)session.getAttribute("errorCode");
+
+		if (Validator.isNotNull(errorCode)) {
+			SessionErrors.add(renderRequest, errorCode);
+
+			session.removeAttribute("errorCode");
+		}
+
+		super.render(renderRequest, renderResponse);
 	}
 
 	public void unbindSocialAccount(

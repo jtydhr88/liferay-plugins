@@ -24,6 +24,9 @@
 <%@ page import="com.liferay.oauthlogin.model.OAuthConnection" %><%@
 page import="com.liferay.oauthlogin.service.OAuthConnectionLocalServiceUtil" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
+page import="com.liferay.portal.kernel.oauth.DuplicateBindingException" %><%@
+page import="com.liferay.portal.kernel.oauth.OAuthSocialAccountIdException" %><%@
+page import="com.liferay.portal.kernel.oauth.OAuthVerifierException" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.StringPool" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %><%@

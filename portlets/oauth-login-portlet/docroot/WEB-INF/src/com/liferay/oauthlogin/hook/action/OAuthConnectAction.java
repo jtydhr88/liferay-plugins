@@ -16,15 +16,19 @@ package com.liferay.oauthlogin.hook.action;
 
 import com.liferay.oauthlogin.model.OAuthConnection;
 import com.liferay.oauthlogin.service.OAuthConnectionLocalServiceUtil;
+import com.liferay.oauthlogin.util.PortletKeys;
 import com.liferay.oauthlogin.util.WebKeys;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.oauth.DuplicateBindingException;
 import com.liferay.portal.kernel.oauth.OAuthConstants;
 import com.liferay.portal.kernel.oauth.OAuthFactoryUtil;
 import com.liferay.portal.kernel.oauth.OAuthManager;
 import com.liferay.portal.kernel.oauth.OAuthRequest;
 import com.liferay.portal.kernel.oauth.OAuthResponse;
+import com.liferay.portal.kernel.oauth.OAuthSocialAccountIdException;
+import com.liferay.portal.kernel.oauth.OAuthVerifierException;
 import com.liferay.portal.kernel.oauth.Token;
 import com.liferay.portal.kernel.oauth.Verb;
 import com.liferay.portal.kernel.oauth.Verifier;
@@ -36,6 +40,7 @@ import com.liferay.portal.model.User;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
+import com.liferay.portlet.PortletURLFactoryUtil;
 import com.liferay.portlet.expando.model.ExpandoTableConstants;
 import com.liferay.portlet.expando.model.ExpandoValue;
 import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
@@ -44,11 +49,16 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletURL;
+import javax.portlet.WindowState;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * @author Andy Yang
  * @author Terry Jia
  */
 public class OAuthConnectAction extends BaseStrutsAction {
@@ -80,19 +90,23 @@ public class OAuthConnectAction extends BaseStrutsAction {
 
 		String accessTokenURL = oAuthConnection.getAccessTokenURL();
 
-		String code = StringPool.BLANK;
+		String oauthVerifier = StringPool.BLANK;
 
 		if (oAuthConnection.getOAuthVersion() == OAuthConstants.OAUTH_10A) {
-			code = ParamUtil.getString(request, "oauth_verifier");
+			oauthVerifier = ParamUtil.getString(request, "oauth_verifier");
 		}
 		else {
 			accessTokenURL = accessTokenURL + "?grant_type=authorization_code";
 
-			code = ParamUtil.getString(request, "code");
+			oauthVerifier = ParamUtil.getString(request, "code");
 		}
 
-		if (Validator.isNotNull(code)) {
-			Verifier verifier = OAuthFactoryUtil.createVerifier(code);
+		try {
+			if (Validator.isNull(oauthVerifier)) {
+				throw new OAuthVerifierException();
+			}
+
+			Verifier verifier = OAuthFactoryUtil.createVerifier(oauthVerifier);
 
 			Verb accessTokenVerb = Verb.GET;
 
@@ -119,8 +133,8 @@ public class OAuthConnectAction extends BaseStrutsAction {
 					oAuthConnection.getRequestTokenURL(),
 					oAuthConnection.getRedirectURL(),
 					oAuthConnection.getScope(), accessTokenVerb,
-					requestTokenVerb, oAuthConnection.getSignatureServiceType()
-					);
+					requestTokenVerb,
+					oAuthConnection.getSignatureServiceType());
 
 				requestToken = (Token)session.getAttribute("requestToken");
 
@@ -170,35 +184,56 @@ public class OAuthConnectAction extends BaseStrutsAction {
 				}
 			}
 
-			if (Validator.isNotNull(socialAccountId)) {
-				long userId = themeDisplay.getUserId();
+			if (Validator.isNull(socialAccountId)) {
+				throw new OAuthSocialAccountIdException();
+			}
 
-				List<ExpandoValue> expandoValues =
-					ExpandoValueLocalServiceUtil.getColumnValues(
+			long userId = themeDisplay.getUserId();
+
+			List<ExpandoValue> expandoValues =
+				ExpandoValueLocalServiceUtil.getColumnValues(
+					companyId, User.class.getName(),
+					ExpandoTableConstants.DEFAULT_TABLE_NAME,
+					oAuthConnectionId + "_social_account_id", socialAccountId,
+					QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+			session.setAttribute("socialAccountId", socialAccountId);
+
+			session.setAttribute("oAuthConnectionId", oAuthConnectionId);
+
+			if (expandoValues.size() == 0) {
+				if (userId == themeDisplay.getDefaultUserId()) {
+					redirect = PortalUtil.getCreateAccountURL(
+						request, themeDisplay);
+				}
+				else {
+					ExpandoValueLocalServiceUtil.addValue(
 						companyId, User.class.getName(),
 						ExpandoTableConstants.DEFAULT_TABLE_NAME,
-						oAuthConnectionId + "_social_account_id",
-						socialAccountId, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-
-				session.setAttribute("socialAccountId", socialAccountId);
-
-				session.setAttribute("oAuthConnectionId", oAuthConnectionId);
-
-				if (expandoValues.size() == 0) {
-					if (userId == themeDisplay.getDefaultUserId()) {
-						redirect = PortalUtil.getCreateAccountURL(
-							request, themeDisplay);
-					}
-					else {
-						ExpandoValueLocalServiceUtil.addValue(
-							companyId, User.class.getName(),
-							ExpandoTableConstants.DEFAULT_TABLE_NAME,
-							oAuthConnectionId + "_social_account_id", userId,
-							socialAccountId);
-					}
+						oAuthConnectionId + "_social_account_id", userId,
+						socialAccountId);
 				}
-				else if (userId != themeDisplay.getDefaultUserId()) {
-				}
+			}
+			else if (userId != themeDisplay.getDefaultUserId()) {
+				throw new DuplicateBindingException();
+			}
+		}
+		catch (Exception e) {
+			if (e instanceof OAuthVerifierException ||
+				e instanceof OAuthSocialAccountIdException ||
+				e instanceof DuplicateBindingException) {
+
+				PortletURL portletURL = PortletURLFactoryUtil.create(
+					request, PortletKeys.OAUTH_LOGIN_DISPLAY,
+					themeDisplay.getPlid(), PortletRequest.RENDER_PHASE);
+
+				portletURL.setParameter("mvcPath", "/display/error.jsp");
+
+				portletURL.setWindowState(WindowState.MAXIMIZED);
+
+				redirect = portletURL.toString();
+
+				session.setAttribute("errorCode", e.getClass().getName());
 			}
 		}
 
@@ -221,7 +256,7 @@ public class OAuthConnectAction extends BaseStrutsAction {
 
 				socialAccountId = jsonObject.getString(
 					oAuthConnection.getSocialAccountIdField());
-				}
+			}
 			catch (Exception e) {
 			}
 		}
