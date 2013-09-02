@@ -146,7 +146,7 @@ long oAuthConnectionId = BeanParamUtil.getLong(oAuthConnection, request, "oAuthC
 		requestTokenDiv.hide();
 	}
 
-	if (socialAccountIdType.val != <%= OAuthConstants.EXTRACTOR_CUSTOM %>) {
+	if (socialAccountIdType.val() != <%= OAuthConstants.EXTRACTOR_CUSTOM %>) {
 		socialAccountIdScriptDiv.hide();
 	}
 

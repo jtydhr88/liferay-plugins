@@ -24,6 +24,7 @@ package com.liferay.oauthlogin.model.impl;
  * @author Andy Yang
  */
 public class OAuthConnectionImpl extends OAuthConnectionBaseImpl {
+
 	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
