@@ -3,6 +3,11 @@
 
 <hook>
 	<portal-properties>portal.properties</portal-properties>
+	<custom-jsp-dir>/META-INF/custom_jsps</custom-jsp-dir>
+	<service>
+		<service-type>com.liferay.portal.service.UserLocalService</service-type>
+		<service-impl>com.liferay.oauthlogin.hook.service.impl.OAuthLoginUserLocalServiceImpl</service-impl>
+	</service>
 	<struts-action>
 		<struts-action-path>/login/oauth_connect</struts-action-path>
 		<struts-action-impl>com.liferay.oauthlogin.hook.action.OAuthConnectAction</struts-action-impl>
